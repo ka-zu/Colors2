@@ -17,13 +17,6 @@ namespace Colors2
             InitializeComponent();
         }
 
-        private void button1_Click(object sender, EventArgs e)
-        {
-            //プロジェクション部を作成
-            Form2 prj = new Form2();
-            prj.Show();
-        }
-
         private void Form1_Load(object sender, EventArgs e)
         {
 
@@ -32,6 +25,12 @@ namespace Colors2
         private void button4_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            Form2 projection = new Form2();
+            projection.Show();
         }
     }
 }
