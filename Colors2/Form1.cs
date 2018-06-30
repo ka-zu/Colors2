@@ -17,10 +17,12 @@ namespace Colors2
             InitializeComponent();
         }
 
+        //プロジェクション部のフォーム
+        Form2 prj = new Form2();
+
+        //スタートボタン
         private void button1_Click(object sender, EventArgs e)
-        {
-            //プロジェクション部を作成
-            Form2 prj = new Form2();
+        {            
             prj.Show();
         }
 
@@ -32,6 +34,21 @@ namespace Colors2
         private void button4_Click(object sender, EventArgs e)
         {
 
+        }
+
+        //終了ボタン
+        private void button3_Click(object sender, EventArgs e)
+        {
+            //閉じるとき、ほかのフォームも一緒に閉じる
+            if(prj == null || prj.IsDisposed)//投影部が開いていないなら
+            {
+                this.Close();//自分だけ
+            }
+            else//開いているなら
+            {
+                prj.Dispose();//投影部を閉じてから
+                this.Close();
+            }
         }
     }
 }

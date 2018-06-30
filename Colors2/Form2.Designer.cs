@@ -37,6 +37,8 @@
             this.ClientSize = new System.Drawing.Size(284, 261);
             this.Name = "Form2";
             this.Text = "Form2";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form2_FormClosing);
+            this.Paint += new System.Windows.Forms.PaintEventHandler(this.Form2_Paint);
             this.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.Form2_KeyPress);
             this.ResumeLayout(false);
 

@@ -1,0 +1,10 @@
+C:\Users\kazu\Colors2\Colors2\bin\Release\Colors2.exe.config
+C:\Users\kazu\Colors2\Colors2\bin\Release\Colors2.exe
+C:\Users\kazu\Colors2\Colors2\bin\Release\Colors2.pdb
+C:\Users\kazu\Colors2\Colors2\obj\Release\Colors2.Form1.resources
+C:\Users\kazu\Colors2\Colors2\obj\Release\Colors2.Form2.resources
+C:\Users\kazu\Colors2\Colors2\obj\Release\Colors2.Properties.Resources.resources
+C:\Users\kazu\Colors2\Colors2\obj\Release\Colors2.csproj.GenerateResource.Cache
+C:\Users\kazu\Colors2\Colors2\obj\Release\Colors2.csproj.CoreCompileInputs.cache
+C:\Users\kazu\Colors2\Colors2\obj\Release\Colors2.exe
+C:\Users\kazu\Colors2\Colors2\obj\Release\Colors2.pdb

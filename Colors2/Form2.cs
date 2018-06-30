@@ -55,6 +55,7 @@ namespace Colors2
             this.WindowState = FormWindowState.Maximized;
 
             isFullScreenMode = true;
+
         }
 
         //キー入力を判定する
@@ -66,7 +67,29 @@ namespace Colors2
                     this.Close();
                     break;
             }
+        }
 
+        private void drawPicture(PaintEventArgs e)
+        {
+            //座標
+            Point p1 = new Point();
+            
+            //画像を割り当て
+            Image img1 = Image.FromFile("../../images/blackRectangle.png");
+
+            e.Graphics.DrawImage(img1, p1);
+            
+        }
+
+        private void Form2_Paint(object sender, PaintEventArgs e)
+        {
+            //描画メソッドの呼び出し
+            drawPicture(e);
+        }
+
+        private void Form2_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            Dispose();
         }
     }
 }
