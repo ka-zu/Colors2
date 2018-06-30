@@ -19,6 +19,12 @@ namespace Colors2
 
         //プロジェクション部のフォーム
         Form2 prj = new Form2();
+        //設定部のフォーム
+        Form3 set = new Form3();
+        //説明部のフォーム
+        Form4 intro = new Form4();
+
+        //設定部のフォーム
 
         //スタートボタン
         private void button1_Click(object sender, EventArgs e)
@@ -31,9 +37,10 @@ namespace Colors2
 
         }
 
+        //設定ボタン
         private void button4_Click(object sender, EventArgs e)
         {
-
+            set.Show();
         }
 
         //終了ボタン
@@ -49,6 +56,12 @@ namespace Colors2
                 prj.Dispose();//投影部を閉じてから
                 this.Close();
             }
+        }
+
+        //説明ボタン
+        private void button2_Click(object sender, EventArgs e)
+        {
+            intro.Show();
         }
     }
 }
