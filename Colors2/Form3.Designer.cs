@@ -35,12 +35,13 @@
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.select = new System.Windows.Forms.Button();
+            this.pictureList = new System.Windows.Forms.ListBox();
             this.SuspendLayout();
             // 
             // speed
             // 
             this.speed.FormattingEnabled = true;
-            this.speed.Location = new System.Drawing.Point(101, 79);
+            this.speed.Location = new System.Drawing.Point(43, 79);
             this.speed.Name = "speed";
             this.speed.Size = new System.Drawing.Size(95, 20);
             this.speed.TabIndex = 0;
@@ -49,7 +50,7 @@
             // movement
             // 
             this.movement.FormattingEnabled = true;
-            this.movement.Location = new System.Drawing.Point(225, 79);
+            this.movement.Location = new System.Drawing.Point(167, 79);
             this.movement.Name = "movement";
             this.movement.Size = new System.Drawing.Size(95, 20);
             this.movement.TabIndex = 0;
@@ -58,7 +59,7 @@
             // kindOfPicture
             // 
             this.kindOfPicture.FormattingEnabled = true;
-            this.kindOfPicture.Location = new System.Drawing.Point(349, 79);
+            this.kindOfPicture.Location = new System.Drawing.Point(291, 79);
             this.kindOfPicture.Name = "kindOfPicture";
             this.kindOfPicture.Size = new System.Drawing.Size(95, 20);
             this.kindOfPicture.TabIndex = 0;
@@ -68,7 +69,7 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("MS UI Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.label2.Location = new System.Drawing.Point(128, 60);
+            this.label2.Location = new System.Drawing.Point(70, 60);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(40, 16);
             this.label2.TabIndex = 2;
@@ -78,7 +79,7 @@
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("MS UI Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.label3.Location = new System.Drawing.Point(233, 60);
+            this.label3.Location = new System.Drawing.Point(175, 60);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(81, 16);
             this.label3.TabIndex = 2;
@@ -88,7 +89,7 @@
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("MS UI Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.label4.Location = new System.Drawing.Point(354, 60);
+            this.label4.Location = new System.Drawing.Point(296, 60);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(85, 16);
             this.label4.TabIndex = 2;
@@ -97,7 +98,7 @@
             // 
             // select
             // 
-            this.select.Location = new System.Drawing.Point(474, 79);
+            this.select.Location = new System.Drawing.Point(392, 80);
             this.select.Name = "select";
             this.select.Size = new System.Drawing.Size(93, 19);
             this.select.TabIndex = 3;
@@ -105,11 +106,21 @@
             this.select.UseVisualStyleBackColor = true;
             this.select.Click += new System.EventHandler(this.select_Click);
             // 
+            // pictureList
+            // 
+            this.pictureList.FormattingEnabled = true;
+            this.pictureList.ItemHeight = 12;
+            this.pictureList.Location = new System.Drawing.Point(491, 79);
+            this.pictureList.Name = "pictureList";
+            this.pictureList.Size = new System.Drawing.Size(136, 172);
+            this.pictureList.TabIndex = 4;
+            // 
             // Form3
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(649, 293);
+            this.Controls.Add(this.pictureList);
             this.Controls.Add(this.select);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
@@ -134,5 +145,6 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Button select;
+        private System.Windows.Forms.ListBox pictureList;
     }
 }

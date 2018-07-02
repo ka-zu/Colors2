@@ -79,11 +79,12 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("MS UI Gothic", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.label1.Location = new System.Drawing.Point(54, 331);
+            this.label1.Location = new System.Drawing.Point(12, 300);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(163, 27);
+            this.label1.Size = new System.Drawing.Size(300, 54);
             this.label1.TabIndex = 4;
-            this.label1.Text = "[logo]Colors2";
+            this.label1.Text = "たね博物館\r\npowered by [logo]Colors2";
+            this.label1.Click += new System.EventHandler(this.label1_Click);
             // 
             // Form1
             // 

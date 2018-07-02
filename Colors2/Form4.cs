@@ -21,5 +21,10 @@ namespace Colors2
         {
 
         }
+
+        private void Form4_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            Dispose();
+        }
     }
 }
