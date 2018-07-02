@@ -89,7 +89,12 @@ namespace Colors2
 
         private void Form2_FormClosing(object sender, FormClosingEventArgs e)
         {
-            Dispose();
+            //閉じるボタンを押しても再表示できるように
+            if (e.CloseReason == CloseReason.UserClosing)
+            {
+                e.Cancel = true;
+                this.Visible = false;
+            }
         }
     }
 }

@@ -130,6 +130,7 @@
             this.Controls.Add(this.speed);
             this.Name = "Form3";
             this.Text = "設定";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form3_FormClosing);
             this.Load += new System.EventHandler(this.Form3_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
