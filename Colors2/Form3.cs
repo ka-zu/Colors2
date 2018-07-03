@@ -20,13 +20,16 @@ namespace Colors2
             speed.Items.Add("ゆっくり");
             speed.Items.Add("ふつう");
             speed.Items.Add("はやい");
+            speed.SelectedIndex = 0;//初期値
 
             movement.Items.Add("まっすぐのみ");
             movement.Items.Add("斜め込み");
             movement.Items.Add("ランダム");
+            movement.SelectedIndex = 0;
 
             kindOfPicture.Items.Add("基本画像");
             kindOfPicture.Items.Add("オリジナル画像");
+            kindOfPicture.SelectedIndex = 0;
         }
 
         private void Form3_Load(object sender, EventArgs e)
