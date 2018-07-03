@@ -31,6 +31,78 @@ namespace Colors2
         //ウィンドウの状態
         private FormWindowState formState = FormWindowState.Normal;
 
+        //座標
+        Point p1 = new Point();
+
+        public Form2()
+        {
+            InitializeComponent();
+
+            this.KeyPreview = true;
+
+            //通常スクリーンモード
+            isFullScreenMode = false;
+            // フルスクリーン表示前のウィンドウの状態を保存する
+            prevFormState = FormWindowState.Normal;
+            // 通常表示時のフォームの境界線スタイルを保存する
+            prevFormStyle = FormBorderStyle.Sizable;
+            // 通常表示時のウィンドウのサイズを保存する
+            prevFormSize = new Size(496, 219);
+
+            //ウィンドウの状態を保存
+            formState = this.WindowState;
+        }
+
+        private void Form2_Load(object sender, EventArgs e)
+        {
+            //タイマーの初期化
+            initTimer();
+        }
+
+        //キー入力を判定する
+        private void Form2_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            switch (e.KeyChar)
+            {
+                case 'q'://ウィンドウ・フルスクリーンを変更
+                    changeWindowMode();
+                    break;
+
+                case (char)Keys.Escape://フォームを閉じる
+                    this.Close();
+                    break;
+            }
+        }
+
+        //描画管理
+        private void drawPicture(PaintEventArgs e)
+        {
+            
+            //画像を割り当て
+            Image img1 = Image.FromFile("../../images/blackRectangle.png");
+
+            e.Graphics.DrawImage(img1, p1);
+            
+        }
+
+        private void Form2_Paint(object sender, PaintEventArgs e)
+        {
+            //描画メソッドの呼び出し
+            drawPicture(e);
+        }
+
+        private void Form2_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            //閉じるボタンを押しても再表示できるように
+            if (e.CloseReason == CloseReason.UserClosing)
+            {
+                e.Cancel = true;
+                this.Visible = false;
+            }
+        }
+
+        
+
         //ウィンドウ・フルスクリーンの切り替え
         private void changeWindowMode()
         {
@@ -80,66 +152,24 @@ namespace Colors2
             }
         }
 
-        public Form2()
+        //時間制御初期化
+        private void initTimer()
         {
-            InitializeComponent();
+            //タイマーの動作時間
+            timer.Interval = 100;
+            //時間で動く関数の呼び出し
+            timer.Tick += new EventHandler(timer_Tick);
 
-            this.KeyPreview = true;
-
-            //通常スクリーンモード
-            isFullScreenMode = false;
-            // フルスクリーン表示前のウィンドウの状態を保存する
-            prevFormState = FormWindowState.Normal;
-            // 通常表示時のフォームの境界線スタイルを保存する
-            prevFormStyle = FormBorderStyle.Sizable;
-            // 通常表示時のウィンドウのサイズを保存する
-            prevFormSize = new Size(496, 219);
-
-            //ウィンドウの状態を保存
-            formState = this.WindowState;
+            //タイマーを有効化
+            timer.Enabled = true;
         }
 
-        //キー入力を判定する
-        private void Form2_KeyPress(object sender, KeyPressEventArgs e)
+        //時間制御
+        private void timer_Tick(object sender, EventArgs e)
         {
-            switch (e.KeyChar)
-            {
-                case 'q'://ウィンドウ・フルスクリーンを変更
-                    changeWindowMode();
-                    break;
-
-                case (char)Keys.Escape://フォームを閉じる
-                    this.Close();
-                    break;
-            }
-        }
-
-        private void drawPicture(PaintEventArgs e)
-        {
-            //座標
-            Point p1 = new Point();
-            
-            //画像を割り当て
-            Image img1 = Image.FromFile("../../images/blackRectangle.png");
-
-            e.Graphics.DrawImage(img1, p1);
-            
-        }
-
-        private void Form2_Paint(object sender, PaintEventArgs e)
-        {
-            //描画メソッドの呼び出し
-            drawPicture(e);
-        }
-
-        private void Form2_FormClosing(object sender, FormClosingEventArgs e)
-        {
-            //閉じるボタンを押しても再表示できるように
-            if (e.CloseReason == CloseReason.UserClosing)
-            {
-                e.Cancel = true;
-                this.Visible = false;
-            }
+            p1.X += 1;
+            p1.Y += 1;
+            Refresh();
         }
     }
 }
