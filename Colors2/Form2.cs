@@ -34,6 +34,9 @@ namespace Colors2
         //座標
         Point p1 = new Point();
 
+        //設定画面で選択された画像の受け取り用
+        private string[] filePath;
+
         public Form2()
         {
             InitializeComponent();

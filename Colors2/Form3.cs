@@ -18,11 +18,17 @@ namespace Colors2
         private int mov;
         private int pic;
 
+        //ファイルピッカ用
+        private OpenFileDialog open = new OpenFileDialog();
+
 
         public Form3()
         {
             InitializeComponent();
+        }
 
+        private void Form3_Load(object sender, EventArgs e)
+        {
             //コンボボックスの中身を追加
             speed.Items.Add("ゆっくり");
             speed.Items.Add("ふつう");
@@ -40,12 +46,15 @@ namespace Colors2
             kindOfPicture.Items.Add("オリジナル画像");
             kindOfPicture.SelectedIndex = 0;
             pic = kindOfPicture.SelectedIndex;
-
-        }
-
-        private void Form3_Load(object sender, EventArgs e)
-        {
-           
+ 
+            //ファイルの複数選択を可能に
+            open.Multiselect = true;
+            //フィルターの設定
+            open.Filter = "画像ファイル|*.png;*.jpg";
+            //初期表示フォルダの設定                   前回開いたファイルを保持してしまう（画像のコンボボックスの意味がない）
+            open.InitialDirectory = "../Release/";
+            //前回開いたファイルを覚えない
+            //open.RestoreDirectory = false;
         }
 
         private void label4_Click(object sender, EventArgs e)
@@ -74,12 +83,6 @@ namespace Colors2
         //使う画像の選択
         private void select_Click(object sender, EventArgs e)
         {
-            OpenFileDialog open = new OpenFileDialog();
-            //ファイルの複数選択を可能に
-            open.Multiselect = true;
-            //フィルターの設定
-            open.Filter = "画像ファイル|*.png;*.jpg";
-
             //リストボックスの初期化
             pictureList.Items.Clear();
             //初期値設定
@@ -94,9 +97,6 @@ namespace Colors2
                 //選択されたファイルををテキストに表示する
                 foreach (string strFilePath in open.FileNames)
                 {
-                    //リストボックスの初期化
-                    pictureList.Items.Clear();
-
                     //ファイルパスからファイル名を取得
                     string strFileName = System.IO.Path.GetFileName(strFilePath);
 
@@ -127,7 +127,19 @@ namespace Colors2
             spe = speed.SelectedIndex;
             mov = movement.SelectedIndex;
             pic = kindOfPicture.SelectedIndex;
+            //MessageBox.Show("spe = "+spe+ " mov = " + mov+ " pic = " + pic);
+            /*foreach (string strFilePath in open.FileNames)
+            {
+                string strFileName = System.IO.Path.GetFileName(strFilePath);
+                MessageBox.Show(strFileName);
+            }*/
+            MessageBox.Show(open.FileNames[0]);
             this.Visible = false;
+        }
+
+        private string[] getSelectFile()
+        {
+            return open.FileNames;
         }
     }
 }
