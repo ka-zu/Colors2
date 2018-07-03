@@ -77,12 +77,11 @@ namespace Colors2
         //描画管理
         private void drawPicture(PaintEventArgs e)
         {
-            
-            //画像を割り当て
-            Image img1 = Image.FromFile("../../images/blackRectangle.png");
+
+            //仮画像を割り当て
+            Image img1 = Image.FromFile("../../figureImages/circle_orange.png");
 
             e.Graphics.DrawImage(img1, p1);
-            
         }
 
         private void Form2_Paint(object sender, PaintEventArgs e)
