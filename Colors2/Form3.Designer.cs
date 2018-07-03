@@ -36,6 +36,8 @@
             this.label4 = new System.Windows.Forms.Label();
             this.select = new System.Windows.Forms.Button();
             this.pictureList = new System.Windows.Forms.ListBox();
+            this.quit = new System.Windows.Forms.Button();
+            this.apply = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // speed
@@ -115,11 +117,33 @@
             this.pictureList.Size = new System.Drawing.Size(136, 172);
             this.pictureList.TabIndex = 4;
             // 
+            // quit
+            // 
+            this.quit.Location = new System.Drawing.Point(22, 258);
+            this.quit.Name = "quit";
+            this.quit.Size = new System.Drawing.Size(75, 23);
+            this.quit.TabIndex = 5;
+            this.quit.Text = "もどる\r\n";
+            this.quit.UseVisualStyleBackColor = true;
+            this.quit.Click += new System.EventHandler(this.quit_Click);
+            // 
+            // apply
+            // 
+            this.apply.Location = new System.Drawing.Point(103, 258);
+            this.apply.Name = "apply";
+            this.apply.Size = new System.Drawing.Size(75, 23);
+            this.apply.TabIndex = 6;
+            this.apply.Text = "けってい\r\n";
+            this.apply.UseVisualStyleBackColor = true;
+            this.apply.Click += new System.EventHandler(this.apply_Click);
+            // 
             // Form3
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(649, 293);
+            this.Controls.Add(this.apply);
+            this.Controls.Add(this.quit);
             this.Controls.Add(this.pictureList);
             this.Controls.Add(this.select);
             this.Controls.Add(this.label4);
@@ -147,5 +171,7 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Button select;
         private System.Windows.Forms.ListBox pictureList;
+        private System.Windows.Forms.Button quit;
+        private System.Windows.Forms.Button apply;
     }
 }

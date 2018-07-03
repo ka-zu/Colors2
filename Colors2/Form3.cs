@@ -12,6 +12,13 @@ namespace Colors2
 {
     public partial class Form3 : Form
     {
+
+        //コンボボックスを受け取る変数
+        private int spe;
+        private int mov;
+        private int pic;
+
+
         public Form3()
         {
             InitializeComponent();
@@ -21,20 +28,24 @@ namespace Colors2
             speed.Items.Add("ふつう");
             speed.Items.Add("はやい");
             speed.SelectedIndex = 0;//初期値
+            spe = speed.SelectedIndex;
 
             movement.Items.Add("まっすぐのみ");
             movement.Items.Add("斜め込み");
             movement.Items.Add("ランダム");
             movement.SelectedIndex = 0;
+            mov = movement.SelectedIndex;
 
             kindOfPicture.Items.Add("基本画像");
             kindOfPicture.Items.Add("オリジナル画像");
             kindOfPicture.SelectedIndex = 0;
+            pic = kindOfPicture.SelectedIndex;
+
         }
 
         private void Form3_Load(object sender, EventArgs e)
         {
-
+           
         }
 
         private void label4_Click(object sender, EventArgs e)
@@ -51,13 +62,13 @@ namespace Colors2
         //動きの種類のボックス
         private void movement_SelectedIndexChanged(object sender, EventArgs e)
         {
-            
+
         }
 
         //画像の種類のボックス
         private void kindOfPicture_SelectedIndexChanged(object sender, EventArgs e)
         {
-            
+
         }
 
         //使う画像の選択
@@ -103,6 +114,20 @@ namespace Colors2
                 e.Cancel = true;
                 this.Visible = false;
             }
+        }
+
+        //戻るボタン
+        private void quit_Click(object sender, EventArgs e)
+        {
+            this.Visible = false;
+        }
+        //決定ボタン
+        private void apply_Click(object sender, EventArgs e)
+        {
+            spe = speed.SelectedIndex;
+            mov = movement.SelectedIndex;
+            pic = kindOfPicture.SelectedIndex;
+            this.Visible = false;
         }
     }
 }
