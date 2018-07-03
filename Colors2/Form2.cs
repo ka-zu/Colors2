@@ -14,6 +14,13 @@ namespace Colors2
     {
         //フルスクリーンかどうか
         private bool isFullScreenMode;
+        //フルスクリーン前のウィンドウ状態を保存
+        private FormWindowState prevFormState;
+        //通常時のフォームの境界線スタイルを保存
+        private FormBorderStyle prevFormStyle;
+        //通常時のウィンドウサイズを保存
+        private Size prevFormSize;
+
         //ディスプレイサイズ
         private int height = System.Windows.Forms.Screen.PrimaryScreen.Bounds.Height;
         private int width = System.Windows.Forms.Screen.PrimaryScreen.Bounds.Width;
@@ -24,10 +31,54 @@ namespace Colors2
         //ウィンドウの状態
         private FormWindowState formState = FormWindowState.Normal;
 
+        //ウィンドウ・フルスクリーンの切り替え
+        private void changeWindowMode()
+        {
+            if (isFullScreenMode == false)
+            {
+                //フルスクリーンに変更
 
-        //通常時のウィンドウサイズを保存
-        private Size prevFormSize;
+                //ウィンドウの状態を保存
+                prevFormState = this.WindowState;
+                //境界線スタイルを保存
+                prevFormStyle = this.FormBorderStyle;
 
+                //最大化　＝＞　フルスクリーンではタスクバーが消えないので
+                //いったん通常表示
+                if (this.WindowState == FormWindowState.Maximized)
+                {
+                    this.WindowState = FormWindowState.Normal;
+                }
+
+                //フォームサイズを保存
+                prevFormSize = this.ClientSize;
+
+                //境界線スタイルをなくす
+                this.FormBorderStyle = FormBorderStyle.None;
+
+                //ウィンドウサイズを最大化
+                this.WindowState = FormWindowState.Maximized;
+
+                isFullScreenMode = true;
+            }
+            else
+            {
+                //最大化に戻すときはいったん通常表示にする
+                //（フルスクリーン処理との関係のため）
+                if (this.WindowState == FormWindowState.Maximized)
+                {
+                    this.WindowState = FormWindowState.Normal;
+                }
+
+                //フォームの境界線スタイルを元に戻す
+                this.FormBorderStyle = prevFormStyle;
+
+                //フォームのウィンドウ状態をもとにもどす
+                this.WindowState = prevFormState;
+
+                isFullScreenMode = false;
+            }
+        }
 
         public Form2()
         {
@@ -35,27 +86,17 @@ namespace Colors2
 
             this.KeyPreview = true;
 
+            //通常スクリーンモード
+            isFullScreenMode = false;
+            // フルスクリーン表示前のウィンドウの状態を保存する
+            prevFormState = FormWindowState.Normal;
+            // 通常表示時のフォームの境界線スタイルを保存する
+            prevFormStyle = FormBorderStyle.Sizable;
+            // 通常表示時のウィンドウのサイズを保存する
+            prevFormSize = new Size(496, 219);
+
             //ウィンドウの状態を保存
             formState = this.WindowState;
-
-            //最大化　＝＞　フルスクリーンではタスクバーが消えないので
-            //いったん通常表示
-            if (this.WindowState == FormWindowState.Maximized)
-            {
-                this.WindowState = FormWindowState.Normal;
-            }
-
-            //フォームサイズを保存
-            prevFormSize = this.ClientSize;
-
-            //境界線スタイルをなくす
-            this.FormBorderStyle = FormBorderStyle.None;
-
-            //ウィンドウサイズを最大化
-            this.WindowState = FormWindowState.Maximized;
-
-            isFullScreenMode = true;
-
         }
 
         //キー入力を判定する
@@ -63,7 +104,11 @@ namespace Colors2
         {
             switch (e.KeyChar)
             {
-                case 'q'://投影フォームを閉じる
+                case 'q'://ウィンドウ・フルスクリーンを変更
+                    changeWindowMode();
+                    break;
+
+                case (char)Keys.Escape://フォームを閉じる
                     this.Close();
                     break;
             }
