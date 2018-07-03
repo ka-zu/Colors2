@@ -33,6 +33,8 @@
             this.button3 = new System.Windows.Forms.Button();
             this.button4 = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
+            this.logo = new System.Windows.Forms.PictureBox();
+            ((System.ComponentModel.ISupportInitialize)(this.logo)).BeginInit();
             this.SuspendLayout();
             // 
             // button1
@@ -81,16 +83,25 @@
             this.label1.Font = new System.Drawing.Font("MS UI Gothic", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
             this.label1.Location = new System.Drawing.Point(12, 300);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(300, 54);
+            this.label1.Size = new System.Drawing.Size(141, 54);
             this.label1.TabIndex = 4;
-            this.label1.Text = "たね博物館\r\npowered by [logo]Colors2";
+            this.label1.Text = "たね博物館\r\npowered by\r\n";
             this.label1.Click += new System.EventHandler(this.label1_Click);
+            // 
+            // logo
+            // 
+            this.logo.Location = new System.Drawing.Point(149, 316);
+            this.logo.Name = "logo";
+            this.logo.Size = new System.Drawing.Size(100, 50);
+            this.logo.TabIndex = 5;
+            this.logo.TabStop = false;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(569, 421);
+            this.Controls.Add(this.logo);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.button4);
             this.Controls.Add(this.button3);
@@ -99,6 +110,7 @@
             this.Name = "Form1";
             this.Text = "Colors2";
             this.Load += new System.EventHandler(this.Form1_Load);
+            ((System.ComponentModel.ISupportInitialize)(this.logo)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -111,6 +123,7 @@
         private System.Windows.Forms.Button button3;
         private System.Windows.Forms.Button button4;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.PictureBox logo;
     }
 }
 

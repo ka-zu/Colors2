@@ -34,7 +34,8 @@ namespace Colors2
 
         private void Form1_Load(object sender, EventArgs e)
         {
-
+            logo.SizeMode = PictureBoxSizeMode.Zoom;
+            logo.ImageLocation=@"../../logo/Colors_logo2.png";
         }
 
         //設定ボタン
