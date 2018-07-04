@@ -67,8 +67,8 @@ namespace Colors2
         {
             switch (e.KeyChar)
             {
-                case 'q'://ウィンドウ・フルスクリーンを変更
-                    changeWindowMode();
+                case 'q'://ウィンドウの境界を消す
+                    cahngeBorderStyle();
                     break;
 
                 case (char)Keys.Escape://フォームを閉じる
@@ -105,8 +105,8 @@ namespace Colors2
 
         
 
-        //ウィンドウ・フルスクリーンの切り替え
-        private void changeWindowMode()
+        //ウィンドウの境界を消す
+        private void cahngeBorderStyle()
         {
             if (isFullScreenMode == false)
             {
@@ -131,7 +131,7 @@ namespace Colors2
                 this.FormBorderStyle = FormBorderStyle.None;
 
                 //ウィンドウサイズを最大化
-                this.WindowState = FormWindowState.Maximized;
+                //this.WindowState = FormWindowState.Maximized;
 
                 isFullScreenMode = true;
             }

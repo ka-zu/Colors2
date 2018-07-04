@@ -133,7 +133,7 @@ namespace Colors2
                 string strFileName = System.IO.Path.GetFileName(strFilePath);
                 MessageBox.Show(strFileName);
             }*/
-            MessageBox.Show(open.FileNames[0]);
+            //MessageBox.Show(open.FileNames[0]);
             this.Visible = false;
         }
 
