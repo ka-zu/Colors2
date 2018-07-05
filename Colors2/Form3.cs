@@ -93,13 +93,22 @@ namespace Colors2
         private void select_Click(object sender, EventArgs e)
         {
             //初期表示フォルダの設定　相対パスを絶対パスに変換する必要がある
-            open.InitialDirectory = System.IO.Path.GetFullPath("../../figureImages");
+            if (pic == 0)
+            {
+                open.InitialDirectory = System.IO.Path.GetFullPath("../../figureImages");
+            }
+            else
+            {
+                open.InitialDirectory = System.IO.Path.GetFullPath("../../drawImages");
+            }
 
             //ファイル選択でOKが押されたら
             if (open.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
                 //リストビューの初期化
                 selectedListView.Items.Clear();
+                //イメージリストの初期化
+                imageList1.Images.Clear();
 
                 int i = 0;
 
