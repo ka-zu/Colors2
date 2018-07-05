@@ -53,10 +53,8 @@ namespace Colors2
             open.Multiselect = true;
             //フィルターの設定
             open.Filter = "画像ファイル|*.png;*.jpg";
-            //初期表示フォルダの設定                   前回開いたファイルを保持してしまう（画像のコンボボックスの意味がない）
-            open.InitialDirectory = "../Release/";
             //前回開いたファイルを覚えない
-            //open.RestoreDirectory = false;
+            open.RestoreDirectory = true;
 
             //リストビューの中で画像を表示できるように
             imageList1.ImageSize = new Size(imgSize, imgSize);
@@ -88,21 +86,18 @@ namespace Colors2
         //画像の種類のボックス
         private void kindOfPicture_SelectedIndexChanged(object sender, EventArgs e)
         {
-
+            pic = kindOfPicture.SelectedIndex;
         }
 
         //使う画像の選択
         private void select_Click(object sender, EventArgs e)
         {
-
-            
-
-            
+            //初期表示フォルダの設定　相対パスを絶対パスに変換する必要がある
+            open.InitialDirectory = System.IO.Path.GetFullPath("../../figureImages");
 
             //ファイル選択でOKが押されたら
             if (open.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
-                
                 //リストビューの初期化
                 selectedListView.Items.Clear();
 
@@ -195,6 +190,11 @@ namespace Colors2
             g.Dispose();
 
             return canvas;
+        }
+
+        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
         }
     }
 }
