@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.speed = new System.Windows.Forms.ComboBox();
             this.movement = new System.Windows.Forms.ComboBox();
             this.kindOfPicture = new System.Windows.Forms.ComboBox();
@@ -35,9 +36,10 @@
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.select = new System.Windows.Forms.Button();
-            this.pictureList = new System.Windows.Forms.ListBox();
             this.quit = new System.Windows.Forms.Button();
             this.apply = new System.Windows.Forms.Button();
+            this.selectedListView = new System.Windows.Forms.ListView();
+            this.imageList1 = new System.Windows.Forms.ImageList(this.components);
             this.SuspendLayout();
             // 
             // speed
@@ -108,15 +110,6 @@
             this.select.UseVisualStyleBackColor = true;
             this.select.Click += new System.EventHandler(this.select_Click);
             // 
-            // pictureList
-            // 
-            this.pictureList.FormattingEnabled = true;
-            this.pictureList.ItemHeight = 12;
-            this.pictureList.Location = new System.Drawing.Point(491, 79);
-            this.pictureList.Name = "pictureList";
-            this.pictureList.Size = new System.Drawing.Size(136, 172);
-            this.pictureList.TabIndex = 4;
-            // 
             // quit
             // 
             this.quit.Location = new System.Drawing.Point(22, 258);
@@ -137,14 +130,28 @@
             this.apply.UseVisualStyleBackColor = true;
             this.apply.Click += new System.EventHandler(this.apply_Click);
             // 
+            // selectedListView
+            // 
+            this.selectedListView.Location = new System.Drawing.Point(491, 79);
+            this.selectedListView.Name = "selectedListView";
+            this.selectedListView.Size = new System.Drawing.Size(263, 198);
+            this.selectedListView.TabIndex = 7;
+            this.selectedListView.UseCompatibleStateImageBehavior = false;
+            // 
+            // imageList1
+            // 
+            this.imageList1.ColorDepth = System.Windows.Forms.ColorDepth.Depth8Bit;
+            this.imageList1.ImageSize = new System.Drawing.Size(16, 16);
+            this.imageList1.TransparentColor = System.Drawing.Color.Transparent;
+            // 
             // Form3
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(649, 293);
+            this.ClientSize = new System.Drawing.Size(826, 293);
+            this.Controls.Add(this.selectedListView);
             this.Controls.Add(this.apply);
             this.Controls.Add(this.quit);
-            this.Controls.Add(this.pictureList);
             this.Controls.Add(this.select);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
@@ -170,8 +177,9 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Button select;
-        private System.Windows.Forms.ListBox pictureList;
         private System.Windows.Forms.Button quit;
         private System.Windows.Forms.Button apply;
+        private System.Windows.Forms.ListView selectedListView;
+        private System.Windows.Forms.ImageList imageList1;
     }
 }

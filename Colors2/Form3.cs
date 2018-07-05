@@ -21,6 +21,8 @@ namespace Colors2
         //ファイルピッカ用
         private OpenFileDialog open = new OpenFileDialog();
 
+        //リストビューのサイズ用
+        int imgSize = 50;
 
         public Form3()
         {
@@ -55,6 +57,15 @@ namespace Colors2
             open.InitialDirectory = "../Release/";
             //前回開いたファイルを覚えない
             //open.RestoreDirectory = false;
+
+            //リストビューの中で画像を表示できるように
+            imageList1.ImageSize = new Size(imgSize, imgSize);
+            selectedListView.SmallImageList = imageList1;
+            //ビューをDetailsにする
+            selectedListView.View = View.Details;
+            //リストビューのヘッダー部を追加
+            selectedListView.Columns.Add("画像");
+            selectedListView.Columns.Add("ファイル名", 100);
         }
 
         private void label4_Click(object sender, EventArgs e)
@@ -83,16 +94,19 @@ namespace Colors2
         //使う画像の選択
         private void select_Click(object sender, EventArgs e)
         {
-            //リストボックスの初期化
-            pictureList.Items.Clear();
-            //初期値設定
-            pictureList.Items.Add("選んだ画像を表示します。");
+
+            
+
+            
 
             //ファイル選択でOKが押されたら
             if (open.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
-                //リストボックスの初期化
-                pictureList.Items.Clear();
+                
+                //リストビューの初期化
+                selectedListView.Items.Clear();
+
+                int i = 0;
 
                 //選択されたファイルををテキストに表示する
                 foreach (string strFilePath in open.FileNames)
@@ -100,8 +114,17 @@ namespace Colors2
                     //ファイルパスからファイル名を取得
                     string strFileName = System.IO.Path.GetFileName(strFilePath);
 
-                    //リストボックスにファイル名を表示
-                    pictureList.Items.Add(strFileName);
+                    //サムネイルを作成
+                    Image original = Bitmap.FromFile(strFilePath);
+                    Image thumbnail = createThumbnail(original, imgSize, imgSize);
+
+                    //イメージリストに画像を入れて、リストビューへ
+                    imageList1.Images.Add(thumbnail);
+                    ListViewItem item = new ListViewItem();
+                    item.ImageIndex = i;
+                    item.SubItems.Add(strFileName);
+                    selectedListView.Items.Add(item);
+                    i++;
                 }
             }
         }
@@ -137,9 +160,41 @@ namespace Colors2
             this.Visible = false;
         }
 
+        //選択したファイルのgetter
         private string[] getSelectFile()
         {
             return open.FileNames;
+        }
+
+        //リストビューの初期化
+        private void initSelectedListView()
+        {
+            //グリッドラインの表示
+            selectedListView.GridLines = true;
+            //ヘッダー部を追加
+            selectedListView.Columns.Add("画像", 100);
+            selectedListView.Columns.Add("ファイル名", 100);
+        }
+
+        //サムネイル画像を作成(画像、横幅、縦幅)
+        Image createThumbnail(Image image, int w,int h)
+        {
+            Bitmap canvas = new Bitmap(w, h);
+
+            Graphics g = Graphics.FromImage(canvas);
+            g.FillRectangle(new SolidBrush(Color.White), 0, 0, w, h);
+
+            float fw = (float)w / (float)image.Width;
+            float fh = (float)h / (float)image.Height;
+
+            float scale = Math.Min(fw, fh);
+            fw = image.Width * scale;
+            fh = image.Height * scale;
+
+            g.DrawImage(image, (w - fw) / 2, (h - fh) / 2, fw, fh);
+            g.Dispose();
+
+            return canvas;
         }
     }
 }
