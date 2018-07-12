@@ -23,6 +23,8 @@ namespace Colors2
         Form3 set = new Form3();
         //説明部のフォーム
         Form4 intro = new Form4();
+        //画像受信部のフォーム
+        Form5 socket = new Form5();
 
         //設定部のフォーム
 
@@ -63,6 +65,12 @@ namespace Colors2
         private void button2_Click(object sender, EventArgs e)
         {
             intro.Show();
+        }
+
+        //説明ボタン
+        private void button5_Click(object sender, EventArgs e)
+        {
+            socket.Show();
         }
 
         private void label1_Click(object sender, EventArgs e)
