@@ -7,6 +7,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.IO;
+using System.Net;
+using System.Net.Sockets;
 
 namespace Colors2
 {
@@ -20,6 +23,12 @@ namespace Colors2
         private FormBorderStyle prevFormStyle;
         //通常時のウィンドウサイズを保存
         private Size prevFormSize;
+        //接続してきたクライアントのIPを保存
+        private const int MAX_CLIENT_NUM = 20;
+        private string[] ipString = new string[MAX_CLIENT_NUM];
+
+        //データのバッファ
+        Byte[] bytes = new Byte[1024];
 
         //ディスプレイサイズ
         private int height = System.Windows.Forms.Screen.PrimaryScreen.Bounds.Height;
@@ -33,7 +42,7 @@ namespace Colors2
             InitializeComponent();
 
             this.KeyPreview = true;
-
+            
             //通常スクリーンモード
             isFullScreenMode = false;
             // フルスクリーン表示前のウィンドウの状態を保存する
@@ -45,6 +54,14 @@ namespace Colors2
 
             //ウィンドウの状態を保存
             formState = this.WindowState;
+
+            try
+            {
+                System.Net.Sockets.TcpListener server = BuildServer();
+
+            }
+            catch (SocketException e) {
+            }
         }
 
         private void Form5_FormClosing(object sender, FormClosingEventArgs e)
@@ -55,6 +72,35 @@ namespace Colors2
                 e.Cancel = true;
                 this.Visible = false;
             }
+        }
+
+        private TcpListener BuildServer()
+        {
+            TcpListener server = null;
+            int port = 11451;
+
+            server = new TcpListener(GetSelfIP(), port);
+            server.Start();
+            Console.WriteLine("Listenを開始しました({0}:{1})。",
+            ((System.Net.IPEndPoint)server.LocalEndpoint).Address,
+            ((System.Net.IPEndPoint)server.LocalEndpoint).Port);
+
+            return server;
+        }
+
+        private IPAddress GetSelfIP() {
+            String hostName = Dns.GetHostName();    // 自身のホスト名を取得
+            IPAddress[] addresses = Dns.GetHostAddresses(hostName);
+
+            foreach (IPAddress address in addresses)
+            {
+                // IPv4 のみを追加する
+                if (address.AddressFamily == System.Net.Sockets.AddressFamily.InterNetwork)
+                {
+                    return address;
+                }
+            }
+            return null;
         }
         
         private void Form5_Load(object sender, EventArgs e)
