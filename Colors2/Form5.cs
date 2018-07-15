@@ -23,12 +23,6 @@ namespace Colors2
         private FormBorderStyle prevFormStyle;
         //通常時のウィンドウサイズを保存
         private Size prevFormSize;
-        //接続してきたクライアントのIPを保存
-        private const int MAX_CLIENT_NUM = 20;
-        private string[] ipString = new string[MAX_CLIENT_NUM];
-
-        //データのバッファ
-        Byte[] bytes = new Byte[1024];
 
         //ディスプレイサイズ
         private int height = System.Windows.Forms.Screen.PrimaryScreen.Bounds.Height;
@@ -37,12 +31,14 @@ namespace Colors2
         //ウィンドウの状態
         private FormWindowState formState = FormWindowState.Normal;
 
+        private List<byte> imageData = new List<byte>();
+
         public Form5()
         {
             InitializeComponent();
 
             this.KeyPreview = true;
-            
+
             //通常スクリーンモード
             isFullScreenMode = false;
             // フルスクリーン表示前のウィンドウの状態を保存する
@@ -57,8 +53,11 @@ namespace Colors2
 
             try
             {
-                System.Net.Sockets.TcpListener server = BuildServer();
-
+                TcpListener server = BuildServer();
+                while (true)
+                {
+                    RunServer(server);
+                }
             }
             catch (SocketException e) {
             }
@@ -74,6 +73,42 @@ namespace Colors2
             }
         }
 
+        private void RunServer(TcpListener server)
+        {
+            TcpClient client = server.AcceptTcpClient();
+            Console.WriteLine("クライアント({0}:{1})と接続しました。",
+                ((IPEndPoint)client.Client.RemoteEndPoint).Address,
+                ((IPEndPoint)client.Client.RemoteEndPoint).Port);
+            // NetworkStreamを取得データの流れ
+            NetworkStream ns = client.GetStream();
+
+            ns.ReadTimeout = 10000;
+            ns.WriteTimeout = 10000;
+
+            Encoding enc = Encoding.UTF8;
+            bool disconnected = false;
+            byte[] resBytes = new byte[256];
+            int resSize = 0;
+
+            do
+            {
+                //データの一部を受信する
+                resSize = ns.Read(resBytes, 0, resBytes.Length);
+                //Readが0を返した時はクライアントが切断したと判断
+                if (resSize == 0)
+                {
+                    disconnected = true;
+                    Console.WriteLine("クライアント({0})が切断しました。",((IPEndPoint)client.Client.RemoteEndPoint).Address);
+                    break;
+                }
+                //受信したデータを蓄積する
+                imageData.AddRange(resBytes);
+                //まだ読み取れるデータがあるか、データの最後が\nでない時は、
+                // 受信を続ける
+
+            } while (ns.DataAvailable || resBytes[resSize - 1] != '\n');
+        } 
+
         private TcpListener BuildServer()
         {
             TcpListener server = null;
@@ -82,8 +117,8 @@ namespace Colors2
             server = new TcpListener(GetSelfIP(), port);
             server.Start();
             Console.WriteLine("Listenを開始しました({0}:{1})。",
-            ((System.Net.IPEndPoint)server.LocalEndpoint).Address,
-            ((System.Net.IPEndPoint)server.LocalEndpoint).Port);
+            ((IPEndPoint)server.LocalEndpoint).Address,
+            ((IPEndPoint)server.LocalEndpoint).Port);
 
             return server;
         }
