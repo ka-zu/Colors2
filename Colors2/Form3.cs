@@ -165,7 +165,7 @@ namespace Colors2
         }
 
         //選択したファイルのgetter
-        private string[] getSelectFile()
+        private string[] getFileNames()
         {
             return open.FileNames;
         }
@@ -199,11 +199,6 @@ namespace Colors2
             g.Dispose();
 
             return canvas;
-        }
-
-        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-
         }
     }
 }

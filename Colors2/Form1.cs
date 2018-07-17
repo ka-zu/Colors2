@@ -24,11 +24,15 @@ namespace Colors2
         //説明部のフォーム
         Form4 intro = new Form4();
 
-        //設定部のフォーム
+        //設定から受け取る画像データのパス
+        private String[] imagePath;
+
 
         //スタートボタン
         private void button1_Click(object sender, EventArgs e)
-        {            
+        {
+            //setterで送信
+            prj.ImagePath = imagePath;
             prj.Show();
         }
 
@@ -69,5 +73,7 @@ namespace Colors2
         {
 
         }
+
+
     }
 }

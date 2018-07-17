@@ -35,7 +35,7 @@ namespace Colors2
         Point p1 = new Point();
 
         //設定画面で選択された画像の受け取り用
-        private string[] filePath;
+        private string[] imagePath;
 
         public Form2()
         {
@@ -102,8 +102,6 @@ namespace Colors2
                 this.Visible = false;
             }
         }
-
-        
 
         //ウィンドウの境界を消す
         private void cahngeBorderStyle()
@@ -172,6 +170,19 @@ namespace Colors2
             p1.X += 1;
             p1.Y += 1;
             Refresh();
+        }
+
+        //imagePathのsetter,getter
+        public string[] ImagePath
+        {
+            set
+            {
+                imagePath = value;
+            }
+            get
+            {
+                return imagePath;
+            }
         }
     }
 }
