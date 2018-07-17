@@ -89,8 +89,16 @@ namespace Colors2
             bool disconnected = false;
             byte[] resBytes = new byte[256];
             int resSize = 0;
+            ulong totalResSIze = 0;
+            ulong data_size = 0;
+            byte[] size_buf = new byte[4];
 
-            do
+
+            ns.Read(size_buf, 0, 4);
+            for (int i = 0; i < 8; i++) {
+                data_size += ((ulong)size_buf[i] << i*8);
+            }
+            while(totalResSIze<data_size)
             {
                 //データの一部を受信する
                 resSize = ns.Read(resBytes, 0, resBytes.Length);
@@ -98,15 +106,21 @@ namespace Colors2
                 if (resSize == 0)
                 {
                     disconnected = true;
+
                     Console.WriteLine("クライアント({0})が切断しました。",((IPEndPoint)client.Client.RemoteEndPoint).Address);
                     break;
                 }
                 //受信したデータを蓄積する
+
                 imageData.AddRange(resBytes);
                 //まだ読み取れるデータがあるか、データの最後が\nでない時は、
                 // 受信を続ける
-
-            } while (ns.DataAvailable || resBytes[resSize - 1] != '\n');
+                totalResSIze += (ulong)resSize;
+            }
+            System.Threading.Thread.Sleep(100);
+            ns.Close();
+            client.Close();
+            Console.WriteLine("切断しました。");
         } 
 
         private TcpListener BuildServer()
