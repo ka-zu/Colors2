@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.IO;//ファイル書き込み
 
 namespace Colors2
 {
@@ -23,6 +24,9 @@ namespace Colors2
 
         //リストビューのサイズ用
         int imgSize = 50;
+
+        //選択したファイルパスの受け渡し用
+        String[] selectFiles;
 
         public Form3()
         {
@@ -46,6 +50,7 @@ namespace Colors2
 
             kindOfPicture.Items.Add("基本画像");
             kindOfPicture.Items.Add("オリジナル画像");
+            kindOfPicture.Items.Add("最新5件");//オリジナル画像から新しく追加された5個を表示
             kindOfPicture.SelectedIndex = 0;
             pic = kindOfPicture.SelectedIndex;
  
@@ -87,6 +92,14 @@ namespace Colors2
         private void kindOfPicture_SelectedIndexChanged(object sender, EventArgs e)
         {
             pic = kindOfPicture.SelectedIndex;
+            if (pic == 2)//最新5件が選択されているときボタンを無効に
+            {
+                select.Enabled = false;
+            }
+            else
+            {
+                select.Enabled = true;
+            }
         }
 
         //使う画像の選択
@@ -95,11 +108,11 @@ namespace Colors2
             //初期表示フォルダの設定　相対パスを絶対パスに変換する必要がある
             if (pic == 0)
             {
-                open.InitialDirectory = System.IO.Path.GetFullPath("../../figureImages");
+                open.InitialDirectory = System.IO.Path.GetFullPath(@"../../figureImages");
             }
             else
             {
-                open.InitialDirectory = System.IO.Path.GetFullPath("../../drawImages");
+                open.InitialDirectory = System.IO.Path.GetFullPath(@"../../drawImages");
             }
 
             //ファイル選択でOKが押されたら
@@ -110,11 +123,21 @@ namespace Colors2
                 //イメージリストの初期化
                 imageList1.Images.Clear();
 
+                //ファイルを送る変数に保存
+                selectFiles = open.FileNames;
+
                 int i = 0;
+
+                //ファイルに選択した画像を書き込む
+                StreamWriter writer = new StreamWriter(@"./selectLog.txt", false);
 
                 //選択されたファイルををテキストに表示する
                 foreach (string strFilePath in open.FileNames)
                 {
+
+                    //書き込み
+                    writer.WriteLine(strFilePath);
+
                     //ファイルパスからファイル名を取得
                     string strFileName = System.IO.Path.GetFileName(strFilePath);
 
@@ -130,6 +153,8 @@ namespace Colors2
                     selectedListView.Items.Add(item);
                     i++;
                 }
+
+                writer.Close();//閉じる
             }
         }
 
