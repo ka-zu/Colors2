@@ -128,33 +128,39 @@ namespace Colors2
 
                 int i = 0;
 
-                //ファイルに選択した画像を書き込む
-                StreamWriter writer = new StreamWriter(@"./selectLog.txt", false);
-
-                //選択されたファイルををテキストに表示する
-                foreach (string strFilePath in open.FileNames)
+                try
                 {
+                    //ファイルに選択した画像を書き込む
+                    StreamWriter writer = new StreamWriter(@"./selectLog.txt", false);
 
-                    //書き込み
-                    writer.WriteLine(strFilePath);
+                    //選択されたファイルををテキストに表示する
+                    foreach (string strFilePath in open.FileNames)
+                    {
 
-                    //ファイルパスからファイル名を取得
-                    string strFileName = System.IO.Path.GetFileName(strFilePath);
+                        //書き込み
+                        writer.WriteLine(strFilePath);
 
-                    //サムネイルを作成
-                    Image original = Bitmap.FromFile(strFilePath);
-                    Image thumbnail = createThumbnail(original, imgSize, imgSize);
+                        //ファイルパスからファイル名を取得
+                        string strFileName = System.IO.Path.GetFileName(strFilePath);
 
-                    //イメージリストに画像を入れて、リストビューへ
-                    imageList1.Images.Add(thumbnail);
-                    ListViewItem item = new ListViewItem();
-                    item.ImageIndex = i;
-                    item.SubItems.Add(strFileName);
-                    selectedListView.Items.Add(item);
-                    i++;
+                        //サムネイルを作成
+                        Image original = Bitmap.FromFile(strFilePath);
+                        Image thumbnail = createThumbnail(original, imgSize, imgSize);
+
+                        //イメージリストに画像を入れて、リストビューへ
+                        imageList1.Images.Add(thumbnail);
+                        ListViewItem item = new ListViewItem();
+                        item.ImageIndex = i;
+                        item.SubItems.Add(strFileName);
+                        selectedListView.Items.Add(item);
+                        i++;
+                    }
+
+                    writer.Close();//ファイルクローズ
+                }catch(Exception ex)
+                {
+                    Console.WriteLine(ex.Message);
                 }
-
-                writer.Close();//閉じる
             }
         }
 

@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.IO;//ファイル読み取り
 
 namespace Colors2
 {
@@ -37,6 +38,9 @@ namespace Colors2
         //設定画面で選択された画像の受け取り用
         private string[] imagePath;
 
+        //動的配列の宣言
+        List<String> strList = new List<String>();
+
         public Form2()
         {
             InitializeComponent();
@@ -54,12 +58,32 @@ namespace Colors2
 
             //ウィンドウの状態を保存
             formState = this.WindowState;
+
+            
         }
 
         private void Form2_Load(object sender, EventArgs e)
         {
             //タイマーの初期化
             initTimer();
+            try
+            {
+                String str;
+                StreamReader reader = new StreamReader(@"./selectLog.txt");
+
+                strList.Clear();
+                while((str = reader.ReadLine()) != null)
+                {
+                    strList.Add(str);//要素を末尾に追加
+                }
+                reader.Close();
+
+
+            }
+            catch(Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
         }
 
         //キー入力を判定する
@@ -81,8 +105,15 @@ namespace Colors2
         private void drawPicture(PaintEventArgs e)
         {
 
+            Image img1;
             //仮画像を割り当て
-            Image img1 = Image.FromFile("../../figureImages/circle_orange.png");
+            if ( strList[0] != null ) {
+                img1 = Image.FromFile(strList[0]);
+            }
+            else
+            {
+                img1 = Image.FromFile(@"../../logo/Colors_logo2.png");
+            }
 
             e.Graphics.DrawImage(img1, p1);
         }
@@ -170,19 +201,6 @@ namespace Colors2
             p1.X += 1;
             p1.Y += 1;
             Refresh();
-        }
-
-        //imagePathのsetter,getter
-        public string[] ImagePath
-        {
-            set
-            {
-                imagePath = value;
-            }
-            get
-            {
-                return imagePath;
-            }
         }
     }
 }

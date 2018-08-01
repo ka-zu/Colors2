@@ -17,15 +17,14 @@ namespace Colors2
     {
         private String objPath;
         Image img;//画像
-        private int x, y;//座標
+        private Point p;//座標
         private int mode;//動きのモード
         private int speed;//動きのスピード
 
-        public Figure()
+        public Figure(String path)
         {
-            //
-            // TODO: Add constructor logic here
-            //
+            objPath = path;
+            img = Image.FromFile(objPath);
         }
     }
 }
