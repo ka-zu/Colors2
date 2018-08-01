@@ -23,8 +23,8 @@ namespace Colors2
         private Size prevFormSize;
 
         //ディスプレイサイズ
-        private int height = System.Windows.Forms.Screen.PrimaryScreen.Bounds.Height;
-        private int width = System.Windows.Forms.Screen.PrimaryScreen.Bounds.Width;
+        private int height = Screen.PrimaryScreen.Bounds.Height;
+        private int width = Screen.PrimaryScreen.Bounds.Width;
 
         //接続されているスクリーンを取得
         private Screen[] screen = System.Windows.Forms.Screen.AllScreens;
@@ -40,6 +40,12 @@ namespace Colors2
 
         //動的配列の宣言
         List<String> strList = new List<String>();
+
+        //図形オブジェクトの動的配列
+        List<Figure> figList = new List<Figure>();
+
+        //デフォルトで表示される図形
+        Figure initFig = new Figure(@"../../logo/Colors_logo2.png");
 
         public Form2()
         {
@@ -66,7 +72,7 @@ namespace Colors2
         {
             //タイマーの初期化
             initTimer();
-            try
+            /*try
             {
                 String str;
                 StreamReader reader = new StreamReader(@"./selectLog.txt");
@@ -83,7 +89,8 @@ namespace Colors2
             catch(Exception ex)
             {
                 Console.WriteLine(ex.Message);
-            }
+            }*/
+            makeFigureObj();
         }
 
         //キー入力を判定する
@@ -104,18 +111,19 @@ namespace Colors2
         //描画管理
         private void drawPicture(PaintEventArgs e)
         {
+     
+            if(figList[0] != null)
+            {
+                foreach (Figure temp in figList ){
 
-            Image img1;
-            //仮画像を割り当て
-            if ( strList[0] != null ) {
-                img1 = Image.FromFile(strList[0]);
+                    e.Graphics.DrawImage(temp.img,temp.p);
+                }
             }
             else
             {
-                img1 = Image.FromFile(@"../../logo/Colors_logo2.png");
+                e.Graphics.DrawImage(initFig.img, initFig.p);
             }
 
-            e.Graphics.DrawImage(img1, p1);
         }
 
         private void Form2_Paint(object sender, PaintEventArgs e)
@@ -198,9 +206,45 @@ namespace Colors2
         //時間制御
         private void timer_Tick(object sender, EventArgs e)
         {
-            p1.X += 1;
-            p1.Y += 1;
+           
+            if (figList[0] != null)
+            {
+                foreach (Figure temp in figList)
+                {
+                    temp.p.X += 1;
+                    temp.p.Y += 1;
+                }
+            }
+            else
+            {
+                initFig.p.X += 1;
+                initFig.p.Y += 1;
+            }
             Refresh();
+        }
+
+        //ファイルを読み込んで図形オブジェクトを作成(更新)
+        private void makeFigureObj()
+        {
+            figList.Clear();
+            try
+            {
+                String str;
+                StreamReader reader = new StreamReader(@"./selectLog.txt");
+
+                strList.Clear();
+                while ((str = reader.ReadLine()) != null)
+                {
+                    Figure fig = new Figure(str);
+                    figList.Add(fig);//要素を末尾に追加
+                    System.Console.WriteLine(str+"\n");
+                }
+                reader.Close();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
         }
     }
 }

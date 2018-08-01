@@ -1,6 +1,4 @@
-C:\Users\kazu\Colors2\Colors2\figureImages\rectangle_yellow.png
-C:\Users\kazu\Colors2\Colors2\figureImages\star_purple.png
-C:\Users\kazu\Colors2\Colors2\figureImages\star_sky.png
-C:\Users\kazu\Colors2\Colors2\figureImages\star_yellow.png
-C:\Users\kazu\Colors2\Colors2\figureImages\triangle_blue.png
-C:\Users\kazu\Colors2\Colors2\figureImages\triangle_yellow.png
+C:\Users\kazu\Colors2\Colors2\figureImages\circle_green.png
+C:\Users\kazu\Colors2\Colors2\figureImages\circle_orange.png
+C:\Users\kazu\Colors2\Colors2\figureImages\circle_purple.png
+C:\Users\kazu\Colors2\Colors2\figureImages\circle_red.png
