@@ -192,6 +192,24 @@ namespace Colors2
                 MessageBox.Show(strFileName);
             }*/
             //MessageBox.Show(open.FileNames[0]);
+
+            Console.WriteLine("spe = " + spe + " mov = " + mov + " pic = " + pic);
+
+            try
+            {
+                //ファイルに選択した画像を書き込む
+                StreamWriter writer = new StreamWriter(@"./settingLog.txt", false);
+                String str = spe + " " + mov + " " + pic;
+
+                writer.WriteLine(str);
+
+                writer.Close();
+            }
+            catch(Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+
             this.Visible = false;
         }
 

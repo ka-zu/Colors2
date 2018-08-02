@@ -72,24 +72,7 @@ namespace Colors2
         {
             //タイマーの初期化
             initTimer();
-            /*try
-            {
-                String str;
-                StreamReader reader = new StreamReader(@"./selectLog.txt");
-
-                strList.Clear();
-                while((str = reader.ReadLine()) != null)
-                {
-                    strList.Add(str);//要素を末尾に追加
-                }
-                reader.Close();
-
-
-            }
-            catch(Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-            }*/
+           
             makeFigureObj();
         }
 
@@ -243,7 +226,7 @@ namespace Colors2
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.Message);
+                Console.WriteLine(ex.Message);//コンソール出力
             }
         }
     }
