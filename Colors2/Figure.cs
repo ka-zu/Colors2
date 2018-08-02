@@ -26,24 +26,20 @@ namespace Colors2
 
         public Figure(String path)//コンストラクタ(動きと速さがない場合)
         {
-            Random r = new Random(path.GetHashCode());
             objPath = path;
             img = Image.FromFile(objPath);
             move = 0;
             speed = 0;
-            point.X = r.Next(Screen.PrimaryScreen.Bounds.Width-350);
-            point.Y = r.Next(Screen.PrimaryScreen.Bounds.Height-350);
+            motionType = returnMotionType();
         }
 
         public Figure(String path, int mov, int spe)
         {
-            Random r = new Random(path.GetHashCode());
             objPath = path;
             img = Image.FromFile(objPath);
             move = mov;
-            speed = spe;
-            point.X = r.Next(Screen.PrimaryScreen.Bounds.Width - 350);
-            point.Y = r.Next(Screen.PrimaryScreen.Bounds.Height - 350);
+            speed = spe+1;
+            motionType = returnMotionType();
         }
 
         private int returnMotionType()
