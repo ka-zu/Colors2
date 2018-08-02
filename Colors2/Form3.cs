@@ -199,9 +199,10 @@ namespace Colors2
             {
                 //ファイルに選択した画像を書き込む
                 StreamWriter writer = new StreamWriter(@"./settingLog.txt", false);
-                String str = spe + " " + mov + " " + pic;
-
-                writer.WriteLine(str);
+           
+                writer.WriteLine(spe.ToString());
+                writer.WriteLine(mov.ToString());
+                writer.WriteLine(pic.ToString());
 
                 writer.Close();
             }
