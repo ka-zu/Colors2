@@ -28,26 +28,37 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
+            this.box = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
+            // 
+            // box
+            // 
+            this.box.Location = new System.Drawing.Point(12, 26);
+            this.box.Multiline = true;
+            this.box.Name = "box";
+            this.box.Size = new System.Drawing.Size(260, 187);
+            this.box.TabIndex = 0;
             // 
             // Form5
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(284, 261);
+            this.Controls.Add(this.box);
             this.DoubleBuffered = true;
             this.Name = "Form5";
             this.Text = "画像受信";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form5_FormClosing);
             this.Load += new System.EventHandler(this.Form5_Load);
             this.Paint += new System.Windows.Forms.PaintEventHandler(this.Form5_Paint);
-            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form5_FormClosing);
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
         #endregion
 
         private System.Windows.Forms.Timer timer;
+        private System.Windows.Forms.TextBox box;
     }
 }

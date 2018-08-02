@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using System.IO;
 using System.Net;
 using System.Net.Sockets;
+using System.Diagnostics;
 
 namespace Colors2
 {
@@ -25,13 +26,18 @@ namespace Colors2
         private Size prevFormSize;
 
         //ディスプレイサイズ
-        private int height = System.Windows.Forms.Screen.PrimaryScreen.Bounds.Height;
-        private int width = System.Windows.Forms.Screen.PrimaryScreen.Bounds.Width;
+        private int height = Screen.PrimaryScreen.Bounds.Height;
+        private int width = Screen.PrimaryScreen.Bounds.Width;
 
         //ウィンドウの状態
         private FormWindowState formState = FormWindowState.Normal;
 
         private List<byte> imageData = new List<byte>();
+
+        public delegate void MyEventHandler(object sender, DataReceivedEventArgs e);
+        public event MyEventHandler MyEvent = null;
+        Process p;
+        private bool flag = false;
 
         public Form5()
         {
@@ -51,6 +57,22 @@ namespace Colors2
             //ウィンドウの状態を保存
             formState = this.WindowState;
 
+            // javaでサーバ作るの
+            MyEvent = new MyEventHandler(event_DataReceived);
+
+            p = new Process();
+            string apppath = Path.GetDirectoryName(Application.ExecutablePath) + "\\..\\..\\";
+            p.StartInfo.FileName = apppath + @"hoge.bat";
+            box.Text += p.StartInfo.FileName;
+
+            p.StartInfo.UseShellExecute = false;
+            p.StartInfo.RedirectStandardOutput = true; // 標準出力をリダイレクト
+            p.StartInfo.CreateNoWindow = true; // コンソール・ウィンドウを開かない
+            p.OutputDataReceived += new DataReceivedEventHandler(p_DataReceived);
+
+            p.Start();
+            p.BeginOutputReadLine();
+            /*
             try
             {
                 TcpListener server = BuildServer();
@@ -61,18 +83,46 @@ namespace Colors2
             }
             catch (SocketException e) {
             }
+            */
+        }
+
+        void event_DataReceived(object sender, DataReceivedEventArgs e)
+        {
+            if (e.Data.IndexOf("TCPサーバ") != -1) { flag = true; }
+            if (flag) box.Text += e.Data + "\r\n";
+        }
+
+        void p_DataReceived(object sender, DataReceivedEventArgs e)
+        {
+            Console.WriteLine(e.Data);  
+            this.Invoke(MyEvent, new object[2] { sender, e });
         }
 
         private void Form5_FormClosing(object sender, FormClosingEventArgs e)
         {
-            //閉じるボタンを押しても再表示できるように
-            if (e.CloseReason == CloseReason.UserClosing)
+            try {
+                if (p != null)
+                {
+                    p.Kill();
+                    p.Close();
+                    p.Dispose();
+                }
+            }
+            catch (InvalidOperationException exc)
             {
-                e.Cancel = true;
-                this.Visible = false;
             }
         }
+        
+        private void Form5_Load(object sender, EventArgs e)
+        {
+        }
 
+        private void Form5_Paint(object sender, PaintEventArgs e)
+        {
+        }
+
+
+        /*----------------------------一時退避--------------------------------*/
         private void RunServer(TcpListener server)
         {
             TcpClient client = server.AcceptTcpClient();
@@ -151,14 +201,5 @@ namespace Colors2
             }
             return null;
         }
-        
-        private void Form5_Load(object sender, EventArgs e)
-        {
-        }
-
-        private void Form5_Paint(object sender, PaintEventArgs e)
-        {
-        }
-
     }
 }
