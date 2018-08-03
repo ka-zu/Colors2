@@ -146,3 +146,8 @@ $RECYCLE.BIN/
 
 # Mac crap
 .DS_Store
+
+# Colors2 directry
+*.vs
+Colors2/[Bb]in/
+Colors2/[Oo]bj/
