@@ -27,6 +27,8 @@ namespace Colors2
         //スタートボタン
         private void button1_Click(object sender, EventArgs e)
         {
+            //プロジェクション部のフォーム
+            prj = new Form2();
             prj.Show();
         }
 
@@ -45,16 +47,7 @@ namespace Colors2
         //終了ボタン
         private void button3_Click(object sender, EventArgs e)
         {
-            //閉じるとき、ほかのフォームも一緒に閉じる
-            if(prj == null || prj.IsDisposed)//投影部が開いていないなら
-            {
-                this.Close();//自分だけ
-            }
-            else//開いているなら
-            {
-                prj.Dispose();//投影部を閉じてから
-                this.Close();
-            }
+            this.Close();
         }
 
         //説明ボタン
