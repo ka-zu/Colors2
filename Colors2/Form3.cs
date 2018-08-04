@@ -69,6 +69,71 @@ namespace Colors2
             //リストビューのヘッダー部を追加
             selectedListView.Columns.Add("画像");
             selectedListView.Columns.Add("ファイル名", 100);
+
+
+            //前回の設定を読み込む（設定）
+            if (File.Exists(@"./settingLog.txt"))
+            {
+                try
+                {
+                    String str;
+                    StreamReader readSetting = new StreamReader(@"./settingLog.txt");
+
+                    str = readSetting.ReadLine();
+                    speed.SelectedIndex = int.Parse(str);
+                    str = readSetting.ReadLine();
+                    movement.SelectedIndex = int.Parse(str);
+                    str = readSetting.ReadLine();
+                    kindOfPicture.SelectedIndex = int.Parse(str);
+                    readSetting.Close();
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.Message);//コンソール出力
+                }
+            }
+            //前回の設定を読み込む（ファイル）
+            if (File.Exists(@"./selectLog.txt"))
+            {
+                int i = 0;
+                try
+                {
+                    //画像を割り当て
+                    String str;
+                    StreamReader reader = new StreamReader(@"./selectLog.txt");
+
+                    //リストビューの初期化
+                    //selectedListView.Clear();
+                    //イメージリストの初期化
+                    //imageList1.Images.Clear();
+
+                    while ((str = reader.ReadLine()) != null)
+                    {
+                        Console.WriteLine(str);
+
+                        //ファイルパスからファイル名を取得
+                        string strFileName = System.IO.Path.GetFileName(str);
+
+                        //サムネイルを作成
+                        Image original = Bitmap.FromFile(str);
+                        Image thumbnail = createThumbnail(original, imgSize, imgSize);
+
+                        //イメージリストに画像を入れて、リストビューへ
+                        imageList1.Images.Add(thumbnail);
+                        ListViewItem item = new ListViewItem();
+                        item.ImageIndex = i;
+                        item.SubItems.Add(strFileName);
+                        selectedListView.Items.Add(item);
+                        i++;
+                    }
+
+                    reader.Close();
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.Message);//コンソール出力
+                }
+            }
         }
 
         private void label4_Click(object sender, EventArgs e)

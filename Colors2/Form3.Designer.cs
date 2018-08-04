@@ -54,7 +54,7 @@
             // movement
             // 
             this.movement.FormattingEnabled = true;
-            this.movement.Location = new System.Drawing.Point(167, 79);
+            this.movement.Location = new System.Drawing.Point(144, 79);
             this.movement.Name = "movement";
             this.movement.Size = new System.Drawing.Size(95, 20);
             this.movement.TabIndex = 0;
@@ -63,7 +63,7 @@
             // kindOfPicture
             // 
             this.kindOfPicture.FormattingEnabled = true;
-            this.kindOfPicture.Location = new System.Drawing.Point(291, 79);
+            this.kindOfPicture.Location = new System.Drawing.Point(245, 79);
             this.kindOfPicture.Name = "kindOfPicture";
             this.kindOfPicture.Size = new System.Drawing.Size(95, 20);
             this.kindOfPicture.TabIndex = 0;
@@ -83,7 +83,7 @@
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("MS UI Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.label3.Location = new System.Drawing.Point(175, 60);
+            this.label3.Location = new System.Drawing.Point(152, 60);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(81, 16);
             this.label3.TabIndex = 2;
@@ -93,7 +93,7 @@
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("MS UI Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.label4.Location = new System.Drawing.Point(296, 60);
+            this.label4.Location = new System.Drawing.Point(250, 60);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(85, 16);
             this.label4.TabIndex = 2;
@@ -102,7 +102,7 @@
             // 
             // select
             // 
-            this.select.Location = new System.Drawing.Point(392, 80);
+            this.select.Location = new System.Drawing.Point(346, 79);
             this.select.Name = "select";
             this.select.Size = new System.Drawing.Size(93, 19);
             this.select.TabIndex = 3;
@@ -132,7 +132,7 @@
             // 
             // selectedListView
             // 
-            this.selectedListView.Location = new System.Drawing.Point(491, 79);
+            this.selectedListView.Location = new System.Drawing.Point(445, 78);
             this.selectedListView.Name = "selectedListView";
             this.selectedListView.Size = new System.Drawing.Size(263, 198);
             this.selectedListView.TabIndex = 7;
@@ -148,7 +148,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(826, 293);
+            this.ClientSize = new System.Drawing.Size(716, 283);
             this.Controls.Add(this.selectedListView);
             this.Controls.Add(this.apply);
             this.Controls.Add(this.quit);
