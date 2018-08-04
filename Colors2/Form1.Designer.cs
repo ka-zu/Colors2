@@ -34,7 +34,9 @@
             this.button4 = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.logo = new System.Windows.Forms.PictureBox();
+            this.tane_logo = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.logo)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tane_logo)).BeginInit();
             this.SuspendLayout();
             // 
             // button1
@@ -81,26 +83,35 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("MS UI Gothic", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.label1.Location = new System.Drawing.Point(12, 300);
+            this.label1.Location = new System.Drawing.Point(75, 355);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(141, 54);
             this.label1.TabIndex = 4;
-            this.label1.Text = "たね博物館\r\npowered by\r\n";
+            this.label1.Text = "\r\npowered by\r\n";
             this.label1.Click += new System.EventHandler(this.label1_Click);
             // 
             // logo
             // 
-            this.logo.Location = new System.Drawing.Point(149, 316);
+            this.logo.Location = new System.Drawing.Point(212, 371);
             this.logo.Name = "logo";
             this.logo.Size = new System.Drawing.Size(100, 50);
             this.logo.TabIndex = 5;
             this.logo.TabStop = false;
+            // 
+            // tane_logo
+            // 
+            this.tane_logo.Location = new System.Drawing.Point(12, 263);
+            this.tane_logo.Name = "tane_logo";
+            this.tane_logo.Size = new System.Drawing.Size(269, 117);
+            this.tane_logo.TabIndex = 6;
+            this.tane_logo.TabStop = false;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(569, 421);
+            this.Controls.Add(this.tane_logo);
             this.Controls.Add(this.logo);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.button4);
@@ -111,6 +122,7 @@
             this.Text = "Colors2";
             this.Load += new System.EventHandler(this.Form1_Load);
             ((System.ComponentModel.ISupportInitialize)(this.logo)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tane_logo)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -124,6 +136,7 @@
         private System.Windows.Forms.Button button4;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.PictureBox logo;
+        private System.Windows.Forms.PictureBox tane_logo;
     }
 }
 

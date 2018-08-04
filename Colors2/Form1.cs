@@ -36,6 +36,8 @@ namespace Colors2
         {
             logo.SizeMode = PictureBoxSizeMode.Zoom;
             logo.ImageLocation=@"../../logo/Colors_logo2.png";
+            tane_logo.SizeMode = PictureBoxSizeMode.Zoom;
+            tane_logo.ImageLocation = @"../../logo/tane_logo.png";
         }
 
         //設定ボタン
