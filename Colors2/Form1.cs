@@ -18,7 +18,7 @@ namespace Colors2
         }
 
         //プロジェクション部のフォーム
-        Form2 prj = new Form2();
+        Form2 prj;
         //設定部のフォーム
         Form3 set = new Form3();
         //説明部のフォーム
@@ -63,6 +63,12 @@ namespace Colors2
 
         }
 
-
+        private void Form1_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            //ほかのフォームを閉じる
+            prj.Close();
+            set.Close();
+            intro.Close();
+        }
     }
 }

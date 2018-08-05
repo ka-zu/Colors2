@@ -43,6 +43,7 @@
             this.ClientSize = new System.Drawing.Size(984, 661);
             this.DoubleBuffered = true;
             this.Name = "Form2";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
             this.Text = "投影";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form2_FormClosing);
             this.Load += new System.EventHandler(this.Form2_Load);

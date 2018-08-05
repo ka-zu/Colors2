@@ -67,19 +67,21 @@ namespace Colors2
             //ウィンドウの状態を保存
             formState = this.WindowState;
 
-            
+            //フォームに関しての初期設定
+            initForm();
         }
 
         private void Form2_Load(object sender, EventArgs e)
         {
+            
+
             //タイマーの初期化
             initTimer();
            
             //設定した画像から図形オブジェクトを生成
             makeFigureObj();
             //ウィンドウサイズに合わせて初期座標を変更           
-            initFigurePoint( figList );
-         
+            initFigurePoint( figList );      
                 
         }
 
@@ -127,19 +129,14 @@ namespace Colors2
 
         private void Form2_FormClosing(object sender, FormClosingEventArgs e)
         {
-            //閉じるボタンを押しても再表示できるように
-            /*if (e.CloseReason == CloseReason.UserClosing)
-            {
-                e.Cancel = true;
-                this.Visible = false;
-            }*/
-            //this.Close();//closingにcloseを書くと無限ループしてエラー
+            //フォームの状態の保存
+            saveForm();
         }
 
         //ウィンドウの境界を消す
         private void cahngeBorderStyle()
         {
-            if (isFullScreenMode == false)
+            if (isFullScreenMode == false)//消す
             {
                 //フルスクリーンに変更
 
@@ -170,7 +167,7 @@ namespace Colors2
 
                 isFullScreenMode = true;
             }
-            else
+            else//つける
             {
                 //境界線が増える分を補完
                 this.Height -= 32;
@@ -246,7 +243,7 @@ namespace Colors2
             {
                 //設定読み込み部
                 int spe = 0; int mov = 0; int pic = 0;
-                if (!File.Exists(@"./setingLog.txt"))
+                if (File.Exists(@"./settingLog.txt"))
                 {
                     String str;
                     StreamReader readSetting = new StreamReader(@"./settingLog.txt");
@@ -265,7 +262,7 @@ namespace Colors2
                 //画像割り当て部
                 if (pic == 0 || pic == 1)//選択されているのが基本・オリジナル図形だったら
                 {
-                    if (!File.Exists(@"./ selectLog.txt"))
+                    if (File.Exists(@"./selectLog.txt"))//図形が選択されていたら
                     {
                         //画像を割り当て
                         String str;
@@ -285,25 +282,12 @@ namespace Colors2
                 {
                     //後で書く
                 }
-                else
+                else//図形が選択されてなかったら初期図形を選択
                 {
-                    //画像を割り当て
-                    String str;
-                    StreamReader reader = new StreamReader(@"./selectLog.txt");
-
                     strList.Clear();
-                    while ((str = reader.ReadLine()) != null)
-                    {
-                        Figure fig = new Figure(str);
-                        figList.Add(fig);//要素を末尾に追加
-                        Console.WriteLine(str);
-                    }
-                    reader.Close();
+                    figList.Add(initFig);//要素を末尾に追加                  
                 }
-
-                
-                    
-
+                                        
             }
             catch (Exception ex)
             {
@@ -366,7 +350,7 @@ namespace Colors2
             
             if(fig.centerPoint.X < 0 || fig.centerPoint.X > this.Width || fig.centerPoint.Y < 0 || fig.centerPoint.Y > this.Height)
             {
-                Console.WriteLine("reverse speed");
+                //Console.WriteLine("reverse speed");//反転タイミング確認用
                 fig.speed = (-1)*fig.speed;
             }
         }
@@ -376,6 +360,82 @@ namespace Colors2
         {
             fig.centerPoint.X = fig.point.X + IMG_SIZE_X / 2;
             fig.centerPoint.Y = fig.point.Y + IMG_SIZE_Y / 2;
+        }
+
+        //フォームの状態を保存
+        private void saveForm()
+        {
+            //閉じるときにフォームの座標・サイズを保存
+            try
+            {
+                //DesktopLocationはボーダーを含んだ座標系
+                int x = this.DesktopLocation.X;
+                int y = this.DesktopLocation.Y;
+                int width = this.Width;
+                int height = this.Height;
+                StreamWriter writer = new StreamWriter("./formSize.txt", false);
+
+                writer.WriteLine(x.ToString());
+                writer.WriteLine(y.ToString());
+
+                if (this.FormBorderStyle == FormBorderStyle.None)//ボーダーが無い状態で消されたら
+                {
+                    height -= 32;//ボーダー分を補完
+                    writer.WriteLine(width.ToString());
+                    writer.WriteLine(height.ToString());
+                }
+                else//ボーダーがある状態で消されたら
+                {
+                    writer.WriteLine(width.ToString());
+                    writer.WriteLine(height.ToString());
+                }
+                writer.Close();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            Console.WriteLine("saveFormLoad : x = " + this.DesktopLocation.X + " y = " + this.DesktopLocation.Y + " width = " + width + " height = " + height);
+        }
+
+        //以前のフォームサイズを復元
+        private void initForm()
+        {
+            //フォームの位置をプログラムで決められるようにする
+            this.StartPosition = FormStartPosition.Manual;
+
+            //DesktopLocationはボーダーを含んだ座標系
+            int x = this.DesktopLocation.X;
+            int y = this.DesktopLocation.Y;
+            int width = this.Width;
+            int height = this.Height;
+            try
+            {
+                if (File.Exists(@"./formSize.txt"))//図形が選択されていたら
+                {
+                    //画像を割り当て
+                    String str;
+                    StreamReader reader = new StreamReader(@"./formSize.txt");
+                    str = reader.ReadLine();
+                    x = int.Parse(str);
+                    str = reader.ReadLine();
+                    y = int.Parse(str);
+                    str = reader.ReadLine();
+                    width = int.Parse(str);
+                    str = reader.ReadLine();
+                    height = int.Parse(str);
+                    Console.WriteLine("initForm : x = " + x + " y = " + y + " width = " + width + " height = " + height);
+                    reader.Close();
+                }
+            }
+            catch (Exception ex)
+            { 
+                Console.WriteLine(ex.Message);
+            }
+            this.DesktopLocation = new Point(x, y);
+            this.Width = width;
+            this.Height = height;
+            Console.WriteLine("initFormLoad : x = " + this.DesktopLocation.X + " y = " + this.DesktopLocation.Y + " width = " + width + " height = " + height);
         }
     }
 }
