@@ -51,6 +51,8 @@ namespace Colors2
             kindOfPicture.Items.Add("基本画像");
             kindOfPicture.Items.Add("オリジナル画像");
             kindOfPicture.Items.Add("最新5件");//オリジナル画像から新しく追加された5個を表示
+            kindOfPicture.Items.Add("最新10件");//オリジナル画像から新しく追加された10個を表示
+            kindOfPicture.Items.Add("最新15件");//オリジナル画像から新しく追加された15個を表示
             kindOfPicture.SelectedIndex = 0;
             pic = kindOfPicture.SelectedIndex;
  

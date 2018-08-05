@@ -278,9 +278,27 @@ namespace Colors2
                         reader.Close();
                     }
                 }
-                else if(pic == 2)//最新５件だったら
+                else if(pic == 2 || pic == 3 || pic == 4)//最新5,10,15件だったら
                 {
-                    //後で書く
+                    int num = (pic - 1) * 5;//読み込む画像の数　あとあと手入力させる場合はここに値を入れる
+                    string directryPath = @"../../drawImages";
+                    string[] files = Directory.GetFiles(Path.GetFullPath(directryPath));
+                    
+                    if(files.Length < num)//ファイル数が表示させる数より少なかったら
+                    {
+                        num = files.Length;
+                    }
+
+                    //絵はファイル名が時間で送られてくるので降順にする
+                    Array.Sort(files);
+                    Array.Reverse(files);
+
+                    for(int i=0; i<num; i++)//新しい物からnum件とってくる
+                    {
+                        Figure fig = new Figure(files[i], mov, spe);
+                        figList.Add(fig);//要素を末尾に追加
+                        Console.WriteLine(files[i]);
+                    }
                 }
                 else//図形が選択されてなかったら初期図形を選択
                 {
