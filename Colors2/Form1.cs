@@ -18,7 +18,7 @@ namespace Colors2
         }
 
         //プロジェクション部のフォーム
-        Form2 prj;
+        Form2 prj = new Form2();
         //設定部のフォーム
         Form3 set = new Form3();
         //説明部のフォーム
