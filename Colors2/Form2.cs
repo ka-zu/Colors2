@@ -42,6 +42,9 @@ namespace Colors2
         //デフォルトで表示される図形
         Figure initFig = new Figure(@"./logo/Colors_logo2.png");
 
+        //図形の初期座標用の乱数
+        Random r = new Random(DateTime.Now.Millisecond);
+
         //サイン波動作の角度用
         double angle = 0;
 
@@ -342,7 +345,7 @@ namespace Colors2
         //位置座標の初期化（Form2の形に合わせるためここで定義）
         private void initFigurePoint(List<Figure> figre)
         {
-            Random r = new Random(DateTime.Now.Millisecond);
+            
             foreach (Figure fig in figre)
             {
                 //左上座標
