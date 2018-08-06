@@ -40,7 +40,12 @@
             this.apply = new System.Windows.Forms.Button();
             this.selectedListView = new System.Windows.Forms.ListView();
             this.imageList1 = new System.Windows.Forms.ImageList(this.components);
-            this.picColor = new System.Windows.Forms.Button();
+            this.selectBGColor = new System.Windows.Forms.Button();
+            this.colorPane = new System.Windows.Forms.Panel();
+            this.colorText = new System.Windows.Forms.Label();
+            this.size = new System.Windows.Forms.TextBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // speed
@@ -145,21 +150,71 @@
             this.imageList1.ImageSize = new System.Drawing.Size(16, 16);
             this.imageList1.TransparentColor = System.Drawing.Color.Transparent;
             // 
-            // picColor
+            // selectBGColor
             // 
-            this.picColor.Location = new System.Drawing.Point(41, 121);
-            this.picColor.Name = "picColor";
-            this.picColor.Size = new System.Drawing.Size(93, 23);
-            this.picColor.TabIndex = 8;
-            this.picColor.Text = "背景色の選択";
-            this.picColor.UseVisualStyleBackColor = true;
+            this.selectBGColor.Location = new System.Drawing.Point(39, 123);
+            this.selectBGColor.Name = "selectBGColor";
+            this.selectBGColor.Size = new System.Drawing.Size(95, 23);
+            this.selectBGColor.TabIndex = 8;
+            this.selectBGColor.Text = "背景色の選択";
+            this.selectBGColor.UseVisualStyleBackColor = true;
+            this.selectBGColor.Click += new System.EventHandler(this.selectBGColor_Click);
+            // 
+            // colorPane
+            // 
+            this.colorPane.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.colorPane.Location = new System.Drawing.Point(142, 118);
+            this.colorPane.Name = "colorPane";
+            this.colorPane.Size = new System.Drawing.Size(84, 32);
+            this.colorPane.TabIndex = 9;
+            // 
+            // colorText
+            // 
+            this.colorText.AutoSize = true;
+            this.colorText.Location = new System.Drawing.Point(149, 122);
+            this.colorText.Name = "colorText";
+            this.colorText.Size = new System.Drawing.Size(69, 24);
+            this.colorText.TabIndex = 0;
+            this.colorText.Text = "選択した色が\r\n表示されます";
+            // 
+            // size
+            // 
+            this.size.Location = new System.Drawing.Point(39, 183);
+            this.size.Name = "size";
+            this.size.Size = new System.Drawing.Size(95, 19);
+            this.size.TabIndex = 10;
+            this.size.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.size_KeyPress);
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("MS UI Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.label1.Location = new System.Drawing.Point(43, 164);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(91, 16);
+            this.label1.TabIndex = 11;
+            this.label1.Text = "図形のサイズ";
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(140, 168);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(140, 36);
+            this.label5.TabIndex = 12;
+            this.label5.Text = "数字しか入力できません。\r\n投影に合わせて変えましょう。\r\n50~500の範囲になります。";
             // 
             // Form3
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(716, 283);
-            this.Controls.Add(this.picColor);
+            this.Controls.Add(this.label5);
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.size);
+            this.Controls.Add(this.colorText);
+            this.Controls.Add(this.colorPane);
+            this.Controls.Add(this.selectBGColor);
             this.Controls.Add(this.selectedListView);
             this.Controls.Add(this.apply);
             this.Controls.Add(this.quit);
@@ -193,6 +248,11 @@
         private System.Windows.Forms.Button apply;
         private System.Windows.Forms.ListView selectedListView;
         private System.Windows.Forms.ImageList imageList1;
-        private System.Windows.Forms.Button picColor;
+        private System.Windows.Forms.Button selectBGColor;
+        private System.Windows.Forms.Panel colorPane;
+        private System.Windows.Forms.Label colorText;
+        private System.Windows.Forms.TextBox size;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label label5;
     }
 }
