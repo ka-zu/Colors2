@@ -40,7 +40,7 @@ namespace Colors2
         List<Figure> figList = new List<Figure>();
 
         //デフォルトで表示される図形
-        Figure initFig = new Figure(@"../../logo/Colors_logo2.png");
+        Figure initFig = new Figure(@"./logo/Colors_logo2.png");
 
         //サイン波動作の角度用
         double angle = 0;
@@ -96,7 +96,7 @@ namespace Colors2
 
                 case (char)Keys.Escape://フォームを閉じる
                     //this.Visible = false;
-                    this.Close();
+                    this.Dispose();
                     break;
             }
         }
@@ -281,7 +281,7 @@ namespace Colors2
                 else if(pic == 2 || pic == 3 || pic == 4)//最新5,10,15件だったら
                 {
                     int num = (pic - 1) * 5;//読み込む画像の数　あとあと手入力させる場合はここに値を入れる
-                    string directryPath = @"../../drawImages";
+                    string directryPath = @"./drawImages";
                     string[] files = Directory.GetFiles(Path.GetFullPath(directryPath));
                     
                     if(files.Length < num)//ファイル数が表示させる数より少なかったら

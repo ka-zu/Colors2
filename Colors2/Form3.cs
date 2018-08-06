@@ -55,7 +55,7 @@ namespace Colors2
             kindOfPicture.Items.Add("最新15件");//オリジナル画像から新しく追加された15個を表示
             kindOfPicture.SelectedIndex = 0;
             pic = kindOfPicture.SelectedIndex;
- 
+
             //ファイルの複数選択を可能に
             open.Multiselect = true;
             //フィルターの設定
@@ -82,11 +82,14 @@ namespace Colors2
                     StreamReader readSetting = new StreamReader(@"./settingLog.txt");
 
                     str = readSetting.ReadLine();
-                    speed.SelectedIndex = int.Parse(str);
+                    spe = int.Parse(str);
+                    speed.SelectedIndex = spe; 
                     str = readSetting.ReadLine();
-                    movement.SelectedIndex = int.Parse(str);
+                    mov = int.Parse(str);
+                    movement.SelectedIndex = mov;
                     str = readSetting.ReadLine();
-                    kindOfPicture.SelectedIndex = int.Parse(str);
+                    pic = int.Parse(str);
+                    kindOfPicture.SelectedIndex = pic;
                     readSetting.Close();
                 }
                 catch (Exception ex)
@@ -94,47 +97,88 @@ namespace Colors2
                     Console.WriteLine(ex.Message);//コンソール出力
                 }
             }
+
             //前回の設定を読み込む（ファイル）
-            if (File.Exists(@"./selectLog.txt"))
+            if (kindOfPicture.SelectedIndex == 0 || kindOfPicture.SelectedIndex == 1)//基本画像かオリジナル画像だったら
             {
-                int i = 0;
-                try
+                if (File.Exists(@"./selectLog.txt"))
                 {
-                    //画像を割り当て
-                    String str;
-                    StreamReader reader = new StreamReader(@"./selectLog.txt");
-
-                    //リストビューの初期化
-                    //selectedListView.Clear();
-                    //イメージリストの初期化
-                    //imageList1.Images.Clear();
-
-                    while ((str = reader.ReadLine()) != null)
+                    int i = 0;
+                    try
                     {
-                        Console.WriteLine(str);
+                        //画像を割り当て
+                        String str;
+                        StreamReader reader = new StreamReader(@"./selectLog.txt");
 
-                        //ファイルパスからファイル名を取得
-                        string strFileName = System.IO.Path.GetFileName(str);
+                        //リストビューの初期化
+                        //selectedListView.Clear();
+                        //イメージリストの初期化
+                        //imageList1.Images.Clear();
 
-                        //サムネイルを作成
-                        Image original = Bitmap.FromFile(str);
-                        Image thumbnail = createThumbnail(original, imgSize, imgSize);
+                        while ((str = reader.ReadLine()) != null)
+                        {
+                            Console.WriteLine(str);
 
-                        //イメージリストに画像を入れて、リストビューへ
-                        imageList1.Images.Add(thumbnail);
-                        ListViewItem item = new ListViewItem();
-                        item.ImageIndex = i;
-                        item.SubItems.Add(strFileName);
-                        selectedListView.Items.Add(item);
-                        i++;
+                            //ファイルパスからファイル名を取得
+                            string strFileName = System.IO.Path.GetFileName(str);
+
+                            //サムネイルを作成
+                            Image original = Bitmap.FromFile(str);
+                            Image thumbnail = createThumbnail(original, imgSize, imgSize);
+
+                            //イメージリストに画像を入れて、リストビューへ
+                            imageList1.Images.Add(thumbnail);
+                            ListViewItem item = new ListViewItem();
+                            item.ImageIndex = i;
+                            item.SubItems.Add(strFileName);
+                            selectedListView.Items.Add(item);
+                            i++;
+                        }
+
+                        reader.Close();
                     }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine(ex.Message);//コンソール出力
+                    }
+                }
+            }
+            else//最新〇件だったら
+            {
+                Console.WriteLine("pic num ="+pic);
+                int num = (pic - 1) * 5;//持ってくる画像の数　手入力の時もここに入れる
 
-                    reader.Close();
-                }
-                catch (Exception ex)
+                string directryPath = @"./drawImages";
+                string[] files = Directory.GetFiles(Path.GetFullPath(directryPath));
+
+                if (files.Length < num)//ファイル数が表示させる数より少なかったら
                 {
-                    Console.WriteLine(ex.Message);//コンソール出力
+                    Console.WriteLine("files num =" + files.Length);
+                    num = files.Length;
                 }
+
+                //絵はファイル名が時間で送られてくるので降順にする
+                Array.Sort(files);
+                Array.Reverse(files);
+
+                for (int i = 0; i < num; i++)//新しい物からnum件とってくる
+                {
+                    Console.WriteLine(files[i]);
+                    //ファイルパスからファイル名を取得
+                    string strFileName = System.IO.Path.GetFileName(files[i]);
+
+                    //サムネイルを作成
+                    Image original = Bitmap.FromFile(files[i]);
+                    Image thumbnail = createThumbnail(original, imgSize, imgSize);
+
+                    //イメージリストに画像を入れて、リストビューへ
+                    imageList1.Images.Add(thumbnail);
+                    ListViewItem item = new ListViewItem();
+                    item.ImageIndex = i;
+                    item.SubItems.Add(strFileName);
+                    selectedListView.Items.Add(item);
+                }
+
             }
         }
 
@@ -159,13 +203,13 @@ namespace Colors2
         private void kindOfPicture_SelectedIndexChanged(object sender, EventArgs e)
         {
             pic = kindOfPicture.SelectedIndex;
-            if (pic == 2)//最新5件が選択されているときボタンを無効に
+            if (pic == 0 || pic == 1)//基本画像かオリジナル画像の時有効化
             {
-                select.Enabled = false;
+                select.Enabled = true;
             }
             else
             {
-                select.Enabled = true;
+                select.Enabled = false;
             }
         }
 
@@ -175,11 +219,11 @@ namespace Colors2
             //初期表示フォルダの設定　相対パスを絶対パスに変換する必要がある
             if (pic == 0)
             {
-                open.InitialDirectory = System.IO.Path.GetFullPath(@"../../figureImages");
+                open.InitialDirectory = System.IO.Path.GetFullPath(@"./figureImages");
             }
             else
             {
-                open.InitialDirectory = System.IO.Path.GetFullPath(@"../../drawImages");
+                open.InitialDirectory = System.IO.Path.GetFullPath(@"./drawImages");
             }
 
             //ファイル選択でOKが押されたら
@@ -316,6 +360,11 @@ namespace Colors2
             g.Dispose();
 
             return canvas;
+        }
+
+        private void Form3_Shown(object sender, EventArgs e)
+        {
+
         }
     }
 }

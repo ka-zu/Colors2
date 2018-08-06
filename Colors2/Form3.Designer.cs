@@ -40,12 +40,13 @@
             this.apply = new System.Windows.Forms.Button();
             this.selectedListView = new System.Windows.Forms.ListView();
             this.imageList1 = new System.Windows.Forms.ImageList(this.components);
+            this.picColor = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // speed
             // 
             this.speed.FormattingEnabled = true;
-            this.speed.Location = new System.Drawing.Point(43, 79);
+            this.speed.Location = new System.Drawing.Point(39, 74);
             this.speed.Name = "speed";
             this.speed.Size = new System.Drawing.Size(95, 20);
             this.speed.TabIndex = 0;
@@ -54,7 +55,7 @@
             // movement
             // 
             this.movement.FormattingEnabled = true;
-            this.movement.Location = new System.Drawing.Point(144, 79);
+            this.movement.Location = new System.Drawing.Point(140, 74);
             this.movement.Name = "movement";
             this.movement.Size = new System.Drawing.Size(95, 20);
             this.movement.TabIndex = 0;
@@ -63,7 +64,7 @@
             // kindOfPicture
             // 
             this.kindOfPicture.FormattingEnabled = true;
-            this.kindOfPicture.Location = new System.Drawing.Point(245, 79);
+            this.kindOfPicture.Location = new System.Drawing.Point(241, 74);
             this.kindOfPicture.Name = "kindOfPicture";
             this.kindOfPicture.Size = new System.Drawing.Size(95, 20);
             this.kindOfPicture.TabIndex = 0;
@@ -73,7 +74,7 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("MS UI Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.label2.Location = new System.Drawing.Point(70, 60);
+            this.label2.Location = new System.Drawing.Point(66, 55);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(40, 16);
             this.label2.TabIndex = 2;
@@ -83,7 +84,7 @@
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("MS UI Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.label3.Location = new System.Drawing.Point(152, 60);
+            this.label3.Location = new System.Drawing.Point(148, 55);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(81, 16);
             this.label3.TabIndex = 2;
@@ -93,7 +94,7 @@
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("MS UI Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.label4.Location = new System.Drawing.Point(250, 60);
+            this.label4.Location = new System.Drawing.Point(246, 55);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(85, 16);
             this.label4.TabIndex = 2;
@@ -102,9 +103,9 @@
             // 
             // select
             // 
-            this.select.Location = new System.Drawing.Point(346, 79);
+            this.select.Location = new System.Drawing.Point(342, 73);
             this.select.Name = "select";
-            this.select.Size = new System.Drawing.Size(93, 19);
+            this.select.Size = new System.Drawing.Size(93, 21);
             this.select.TabIndex = 3;
             this.select.Text = "使う画像を選択";
             this.select.UseVisualStyleBackColor = true;
@@ -112,7 +113,7 @@
             // 
             // quit
             // 
-            this.quit.Location = new System.Drawing.Point(22, 258);
+            this.quit.Location = new System.Drawing.Point(22, 248);
             this.quit.Name = "quit";
             this.quit.Size = new System.Drawing.Size(75, 23);
             this.quit.TabIndex = 5;
@@ -122,7 +123,7 @@
             // 
             // apply
             // 
-            this.apply.Location = new System.Drawing.Point(103, 258);
+            this.apply.Location = new System.Drawing.Point(103, 248);
             this.apply.Name = "apply";
             this.apply.Size = new System.Drawing.Size(75, 23);
             this.apply.TabIndex = 6;
@@ -132,7 +133,7 @@
             // 
             // selectedListView
             // 
-            this.selectedListView.Location = new System.Drawing.Point(445, 78);
+            this.selectedListView.Location = new System.Drawing.Point(441, 73);
             this.selectedListView.Name = "selectedListView";
             this.selectedListView.Size = new System.Drawing.Size(263, 198);
             this.selectedListView.TabIndex = 7;
@@ -144,11 +145,21 @@
             this.imageList1.ImageSize = new System.Drawing.Size(16, 16);
             this.imageList1.TransparentColor = System.Drawing.Color.Transparent;
             // 
+            // picColor
+            // 
+            this.picColor.Location = new System.Drawing.Point(41, 121);
+            this.picColor.Name = "picColor";
+            this.picColor.Size = new System.Drawing.Size(93, 23);
+            this.picColor.TabIndex = 8;
+            this.picColor.Text = "背景色の選択";
+            this.picColor.UseVisualStyleBackColor = true;
+            // 
             // Form3
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(716, 283);
+            this.Controls.Add(this.picColor);
             this.Controls.Add(this.selectedListView);
             this.Controls.Add(this.apply);
             this.Controls.Add(this.quit);
@@ -163,6 +174,7 @@
             this.Text = "設定";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form3_FormClosing);
             this.Load += new System.EventHandler(this.Form3_Load);
+            this.Shown += new System.EventHandler(this.Form3_Shown);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -181,5 +193,6 @@
         private System.Windows.Forms.Button apply;
         private System.Windows.Forms.ListView selectedListView;
         private System.Windows.Forms.ImageList imageList1;
+        private System.Windows.Forms.Button picColor;
     }
 }

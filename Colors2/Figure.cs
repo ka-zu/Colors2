@@ -24,6 +24,7 @@ namespace Colors2
         public int move;//動きのモード
         public int motionType;//設定されたモードから割り当てられる動き
         public int speed;//動きのスピード
+        Random r = new Random(DateTime.Now.Millisecond);
 
         public Figure(String path)//コンストラクタ(動きと速さがない場合)
         {
@@ -46,7 +47,7 @@ namespace Colors2
 
         private int returnMotionType()
         {
-            Random r = new Random(DateTime.Now.Millisecond);
+            
             switch (move)
             {
                 case 0://縦横のみの時 

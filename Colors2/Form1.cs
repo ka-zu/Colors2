@@ -12,6 +12,9 @@ namespace Colors2
 {
     public partial class Form1 : Form
     {
+
+        
+
         public Form1()
         {
             InitializeComponent();
@@ -35,9 +38,9 @@ namespace Colors2
         private void Form1_Load(object sender, EventArgs e)
         {
             logo.SizeMode = PictureBoxSizeMode.Zoom;
-            logo.ImageLocation=@"../../logo/Colors_logo2.png";
+            logo.ImageLocation=@"./logo/Colors_logo2.png";
             tane_logo.SizeMode = PictureBoxSizeMode.Zoom;
-            tane_logo.ImageLocation = @"../../logo/tane_logo.png";
+            tane_logo.ImageLocation = @"./logo/tane_logo.png";
         }
 
         //設定ボタン
