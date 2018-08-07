@@ -14,6 +14,10 @@ namespace Colors2
 {
     public partial class Form2 : Form
     {
+        //画像受信フラグ
+        public static bool isReceivedImage=false;
+        public static int ReceivedImageNum = 0;
+
         //フルスクリーンかどうか
         private bool isFullScreenMode;
         //フルスクリーン前のウィンドウ状態を保存
@@ -216,6 +220,12 @@ namespace Colors2
         //時間制御
         private void timer_Tick(object sender, EventArgs e)
         {
+            if (isReceivedImage && (pic == 2 || pic == 3 || pic == 4) ) {
+                addRecievedFigureObj();
+                isReceivedImage = false;
+                ReceivedImageNum = 0;
+            }
+
             //角度が一周したら
             if(angle == 360)
             {
@@ -244,6 +254,34 @@ namespace Colors2
                 movement(initFig);
             }
             Refresh();
+        }
+
+        private void addRecievedFigureObj() {
+            try {
+                if (pic == 2 || pic == 3 || pic == 4) {
+                    string directryPath = @"./drawImages";
+                    string[] files = Directory.GetFiles(Path.GetFullPath(directryPath));
+                    //絵はファイル名が時間で送られてくるので降順にする
+                    Array.Sort(files);
+                    Array.Reverse(files);
+
+                    for (int i = 0; i < ReceivedImageNum; i++)//新しい物からnum件とってくる
+                    {
+                        Figure fig = new Figure(files[i], mov, spe);
+                        figList.Add(fig);//要素を末尾に追加
+                        if (figList.Count > (pic-1) * 5) { figList.RemoveAt(0); }
+                        //左上座標
+                        figList[figList.Count-1].point.X = r.Next(this.Width-imgSize);
+                        figList[figList.Count-1].point.Y = r.Next(this.Height-imgSize);
+                        //中心座標
+                        figList[figList.Count-1].centerPoint.X = r.Next(this.Width - imgSize) + (imgSize / 2);
+                        figList[figList.Count-1].centerPoint.Y = r.Next(this.Height - imgSize) + (imgSize / 2);
+                    }
+                }
+            }
+            catch (Exception ex) {
+                Console.WriteLine(ex.Message);//コンソール出力
+            }
         }
 
         //ファイルを読み込んで図形オブジェクトを作成(更新)
@@ -343,10 +381,10 @@ namespace Colors2
         }
 
         //位置座標の初期化（Form2の形に合わせるためここで定義）
-        private void initFigurePoint(List<Figure> figre)
+        private void initFigurePoint(List<Figure> figure)
         {
             
-            foreach (Figure fig in figre)
+            foreach (Figure fig in figure)
             {
                 //左上座標
                 fig.point.X = r.Next(this.Width-imgSize);

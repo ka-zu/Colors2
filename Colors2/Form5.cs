@@ -63,7 +63,7 @@ namespace Colors2
             p = new Process();
             //string apppath = Path.GetDirectoryName(Application.ExecutablePath);
             //box.Text += apppath + @"TCPGraphicGetting_x64.exe";
-            p.StartInfo.FileName = @"C:\\Users\\marii\\Desktop\\Colors2\\Colors2\\TCPGraphicGetting_x64.exe";
+            p.StartInfo.FileName = @"TCPGraphicGetting_x86.exe";
             box.Text += p.StartInfo.FileName;
 
             p.StartInfo.UseShellExecute = false;
@@ -94,6 +94,10 @@ namespace Colors2
             if (e.Data.IndexOf("TCPサーバ") != -1) { flag = true; }
             if (e.Data.IndexOf("%") == -1) {
                 if (flag) box.Text += e.Data + "\r\n";
+            }
+            if (e.Data.IndexOf("done") != -1) {
+                Form2.isReceivedImage = true;
+                Form2.ReceivedImageNum++;
             }
         }
 
