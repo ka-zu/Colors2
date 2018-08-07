@@ -36,7 +36,7 @@ namespace Colors2
 
         public delegate void MyEventHandler(object sender, DataReceivedEventArgs e);
         public event MyEventHandler MyEvent = null;
-        Process p;
+        public static Process p;
         private bool flag = false;
 
         public Form5()
@@ -62,11 +62,13 @@ namespace Colors2
 
             p = new Process();
             string apppath = Path.GetDirectoryName(Application.ExecutablePath) + "\\..\\..\\";
-            p.StartInfo.FileName = apppath + @"hoge.bat";
+            p.StartInfo.FileName = apppath + @"TCPGraphicGetting_x86.exe";
             box.Text += p.StartInfo.FileName;
 
             p.StartInfo.UseShellExecute = false;
+            p.StartInfo.RedirectStandardInput = true; // 標準入力をリダイレクト
             p.StartInfo.RedirectStandardOutput = true; // 標準出力をリダイレクト
+            p.StartInfo.RedirectStandardError = true; 
             p.StartInfo.CreateNoWindow = true; // コンソール・ウィンドウを開かない
             p.OutputDataReceived += new DataReceivedEventHandler(p_DataReceived);
 
@@ -100,16 +102,10 @@ namespace Colors2
 
         private void Form5_FormClosing(object sender, FormClosingEventArgs e)
         {
-            try {
-                if (p != null)
-                {
-                    p.Kill();
-                    p.Close();
-                    p.Dispose();
-                }
-            }
-            catch (InvalidOperationException exc)
+            if (e.CloseReason == CloseReason.UserClosing)
             {
+                e.Cancel = true;
+                this.Visible = false;
             }
         }
         

@@ -51,6 +51,7 @@ namespace Colors2
         //終了ボタン
         private void button3_Click(object sender, EventArgs e)
         {
+            Form5.p.Kill();
             this.Close();
         }
 
@@ -60,7 +61,7 @@ namespace Colors2
             intro.Show();
         }
 
-        //説明ボタン
+        //受信ボタン
         private void button5_Click(object sender, EventArgs e)
         {
             if (socket == null) {

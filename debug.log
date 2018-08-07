@@ -31,3 +31,7 @@
 [0717/171623:INFO:dhcp_proxy_script_adapter_fetcher_win.cc(263)] Error fetching PAC URL from DHCP: 2
 [0730/105737:WARNING:resource_bundle.cc(269)] locale_file_path.empty()
 [0730/105738:WARNING:resource_bundle.cc(269)] locale_file_path.empty()
+[0805/220047:WARNING:resource_bundle.cc(269)] locale_file_path.empty()
+[0805/220047:WARNING:resource_bundle.cc(269)] locale_file_path.empty()
+[0805/221212:WARNING:resource_bundle.cc(269)] locale_file_path.empty()
+[0805/221212:WARNING:resource_bundle.cc(269)] locale_file_path.empty()
