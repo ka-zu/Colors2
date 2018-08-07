@@ -24,3 +24,4 @@ C:\Users\marii\Desktop\Colors2\Colors2\obj\Release\Colors2.csproj.GenerateResour
 C:\Users\marii\Desktop\Colors2\Colors2\obj\Release\Colors2.csproj.CoreCompileInputs.cache
 C:\Users\marii\Desktop\Colors2\Colors2\obj\Release\Colors2.exe
 C:\Users\marii\Desktop\Colors2\Colors2\obj\Release\Colors2.pdb
+C:\Users\marii\Desktop\Colors2\Colors2\obj\Release\Colors2.csprojResolveAssemblyReference.cache

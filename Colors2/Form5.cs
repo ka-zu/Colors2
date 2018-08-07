@@ -92,7 +92,9 @@ namespace Colors2
         void event_DataReceived(object sender, DataReceivedEventArgs e)
         {
             if (e.Data.IndexOf("TCPサーバ") != -1) { flag = true; }
-            if (flag) box.Text += e.Data + "\r\n";
+            if (e.Data.IndexOf("%") == -1) {
+                if (flag) box.Text += e.Data + "\r\n";
+            }
         }
 
         void p_DataReceived(object sender, DataReceivedEventArgs e)
