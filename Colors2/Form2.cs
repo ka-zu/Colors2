@@ -40,14 +40,24 @@ namespace Colors2
         List<Figure> figList = new List<Figure>();
 
         //デフォルトで表示される図形
-        Figure initFig = new Figure(@"../../logo/Colors_logo2.png");
+        Figure initFig = new Figure(@"./logo/Colors_logo2.png");
+
+        //図形の初期座標用の乱数
+        Random r = new Random(DateTime.Now.Millisecond);
 
         //サイン波動作の角度用
         double angle = 0;
 
         //投影する図形の最大サイズ
-        private const int IMG_SIZE_X = 150;
-        private const int IMG_SIZE_Y = 150;
+        int imgSize = 150;
+
+        //フォームの背景用
+        Color bgColor = Color.White;
+
+        //コンボボックスの変数
+        private int spe = 0;
+        private int mov = 0;
+        private int pic = 0;
 
         public Form2()
         {
@@ -77,7 +87,8 @@ namespace Colors2
 
             //タイマーの初期化
             initTimer();
-           
+            //設定の読み込み
+            loadSetting();
             //設定した画像から図形オブジェクトを生成
             makeFigureObj();
             //ウィンドウサイズに合わせて初期座標を変更           
@@ -96,7 +107,7 @@ namespace Colors2
 
                 case (char)Keys.Escape://フォームを閉じる
                     //this.Visible = false;
-                    this.Close();
+                    this.Dispose();
                     break;
             }
         }
@@ -109,14 +120,14 @@ namespace Colors2
             {
                 foreach (Figure temp in figList ){
                     
-                    e.Graphics.DrawImage(temp.img,temp.point.X,temp.point.Y,IMG_SIZE_X,IMG_SIZE_Y);
+                    e.Graphics.DrawImage(temp.img,temp.point.X,temp.point.Y,imgSize,imgSize);
                     //e.Graphics.DrawArc(Pens.Red,temp.point.X,temp.point.Y,10,10,0,360);座標確認用
                     //e.Graphics.DrawArc(Pens.Blue, temp.centerPoint.X, temp.centerPoint.Y, 10, 10, 0, 360);//中心座標確認用
                 }
             }
             else
             {
-                e.Graphics.DrawImage(initFig.img, initFig.point.X, initFig.point.Y,IMG_SIZE_X,IMG_SIZE_Y);
+                e.Graphics.DrawImage(initFig.img, initFig.point.X, initFig.point.Y,imgSize,imgSize);
             }
 
         }
@@ -241,24 +252,7 @@ namespace Colors2
             figList.Clear();
             try
             {
-                //設定読み込み部
-                int spe = 0; int mov = 0; int pic = 0;
-                if (File.Exists(@"./settingLog.txt"))
-                {
-                    String str;
-                    StreamReader readSetting = new StreamReader(@"./settingLog.txt");
-
-                    str = readSetting.ReadLine();
-                    spe = int.Parse(str);
-                    str = readSetting.ReadLine();
-                    mov = int.Parse(str);
-                    str = readSetting.ReadLine();
-                    pic = int.Parse(str);
-                    Console.WriteLine("spe = " + spe + " mov = " + mov + " pic = " + pic);
-
-                    readSetting.Close();
-                }
-
+                
                 //画像割り当て部
                 if (pic == 0 || pic == 1)//選択されているのが基本・オリジナル図形だったら
                 {
@@ -271,6 +265,7 @@ namespace Colors2
                         strList.Clear();
                         while ((str = reader.ReadLine()) != null)
                         {
+
                             Figure fig = new Figure(str,mov,spe);
                             figList.Add(fig);//要素を末尾に追加
                             Console.WriteLine(str);
@@ -278,9 +273,27 @@ namespace Colors2
                         reader.Close();
                     }
                 }
-                else if(pic == 2)//最新５件だったら
+                else if(pic == 2 || pic == 3 || pic == 4)//最新5,10,15件だったら
                 {
-                    //後で書く
+                    int num = (pic - 1) * 5;//読み込む画像の数　あとあと手入力させる場合はここに値を入れる
+                    string directryPath = @"./drawImages";
+                    string[] files = Directory.GetFiles(Path.GetFullPath(directryPath));
+                    
+                    if(files.Length < num)//ファイル数が表示させる数より少なかったら
+                    {
+                        num = files.Length;
+                    }
+
+                    //絵はファイル名が時間で送られてくるので降順にする
+                    Array.Sort(files);
+                    Array.Reverse(files);
+
+                    for(int i=0; i<num; i++)//新しい物からnum件とってくる
+                    {
+                        Figure fig = new Figure(files[i], mov, spe);
+                        figList.Add(fig);//要素を末尾に追加
+                        Console.WriteLine(files[i]);
+                    }
                 }
                 else//図形が選択されてなかったら初期図形を選択
                 {
@@ -332,15 +345,15 @@ namespace Colors2
         //位置座標の初期化（Form2の形に合わせるためここで定義）
         private void initFigurePoint(List<Figure> figre)
         {
-            Random r = new Random(DateTime.Now.Millisecond);
+            
             foreach (Figure fig in figre)
             {
                 //左上座標
-                fig.point.X = r.Next(this.Width-IMG_SIZE_X);
-                fig.point.Y = r.Next(this.Height-IMG_SIZE_Y);
+                fig.point.X = r.Next(this.Width-imgSize);
+                fig.point.Y = r.Next(this.Height-imgSize);
                 //中心座標
-                fig.centerPoint.X = r.Next(this.Width - IMG_SIZE_X) + (IMG_SIZE_X / 2);
-                fig.centerPoint.Y = r.Next(this.Height - IMG_SIZE_Y) + (IMG_SIZE_Y / 2);
+                fig.centerPoint.X = r.Next(this.Width - imgSize) + (imgSize / 2);
+                fig.centerPoint.Y = r.Next(this.Height - imgSize) + (imgSize / 2);
             }
         }
 
@@ -358,8 +371,8 @@ namespace Colors2
         //図形の座標から中心座標をセット(座標を変化させたら使う)
         private void setCenterPoint(Figure fig)
         {
-            fig.centerPoint.X = fig.point.X + IMG_SIZE_X / 2;
-            fig.centerPoint.Y = fig.point.Y + IMG_SIZE_Y / 2;
+            fig.centerPoint.X = fig.point.X + imgSize / 2;
+            fig.centerPoint.Y = fig.point.Y + imgSize / 2;
         }
 
         //フォームの状態を保存
@@ -409,6 +422,7 @@ namespace Colors2
             int y = this.DesktopLocation.Y;
             int width = this.Width;
             int height = this.Height;
+            
             try
             {
                 if (File.Exists(@"./formSize.txt"))//図形が選択されていたら
@@ -424,7 +438,9 @@ namespace Colors2
                     width = int.Parse(str);
                     str = reader.ReadLine();
                     height = int.Parse(str);
+
                     Console.WriteLine("initForm : x = " + x + " y = " + y + " width = " + width + " height = " + height);
+                    
                     reader.Close();
                 }
             }
@@ -435,7 +451,42 @@ namespace Colors2
             this.DesktopLocation = new Point(x, y);
             this.Width = width;
             this.Height = height;
+            
             Console.WriteLine("initFormLoad : x = " + this.DesktopLocation.X + " y = " + this.DesktopLocation.Y + " width = " + width + " height = " + height);
+        }
+
+        //設定画面からの設定を読み込み
+        private void loadSetting()
+        {
+            //設定読み込み部
+            if (File.Exists(@"./settingLog.txt"))
+            {
+                String str;
+                StreamReader readSetting = new StreamReader(@"./settingLog.txt");
+                int[] ARGB = { 255, 255, 255, 255 };
+
+                str = readSetting.ReadLine();
+                this.spe = int.Parse(str);
+                str = readSetting.ReadLine();
+                this.mov = int.Parse(str);
+                str = readSetting.ReadLine();
+                this.pic = int.Parse(str);
+                for (int i = 0; i < 4; i++)
+                {
+                    str = readSetting.ReadLine();
+                    ARGB[i] = int.Parse(str);
+                }
+                str = readSetting.ReadLine();
+                this.imgSize = int.Parse(str);
+
+                Console.WriteLine("loadSetting: spe = " + spe + " mov = " + mov + " pic = " + pic);
+                Console.WriteLine("loadSetting: A=" + ARGB[0] + " R=" + ARGB[1] + " G=" + ARGB[2] + " B=" + ARGB[3]);
+
+                this.bgColor = Color.FromArgb(ARGB[0], ARGB[1], ARGB[2], ARGB[3]);
+                this.BackColor = bgColor;
+
+                readSetting.Close();
+            }
         }
     }
 }

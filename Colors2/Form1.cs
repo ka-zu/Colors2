@@ -12,13 +12,16 @@ namespace Colors2
 {
     public partial class Form1 : Form
     {
+
+        
+
         public Form1()
         {
             InitializeComponent();
         }
 
         //プロジェクション部のフォーム
-        Form2 prj;
+        Form2 prj = new Form2();
         //設定部のフォーム
         Form3 set = new Form3();
         //説明部のフォーム
@@ -37,9 +40,9 @@ namespace Colors2
         private void Form1_Load(object sender, EventArgs e)
         {
             logo.SizeMode = PictureBoxSizeMode.Zoom;
-            logo.ImageLocation=@"../../logo/Colors_logo2.png";
-            tane_logo.SizeMode = PictureBoxSizeMode.Zoom;
-            tane_logo.ImageLocation = @"../../logo/tane_logo.png";
+            logo.ImageLocation=@"./logo/Colors2_logo.png";
+            taneLogo.SizeMode = PictureBoxSizeMode.Zoom;
+            taneLogo.ImageLocation = @"./logo/tane_logo.png";
         }
 
         //設定ボタン
