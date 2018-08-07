@@ -62,7 +62,7 @@ namespace Colors2
 
             p = new Process();
             string apppath = Path.GetDirectoryName(Application.ExecutablePath) + "\\..\\..\\";
-            p.StartInfo.FileName = apppath + @"TCPGraphicGetting_x86.exe";
+            p.StartInfo.FileName = apppath + @"TCPGraphicGetting_x64.exe";
             box.Text += p.StartInfo.FileName;
 
             p.StartInfo.UseShellExecute = false;
