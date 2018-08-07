@@ -54,7 +54,10 @@ namespace Colors2
         //終了ボタン
         private void button3_Click(object sender, EventArgs e)
         {
-            Form5.p.Kill();
+            if (Form5.p != null)
+            {
+                Form5.p.Kill();
+            }
             this.Close();
         }
 
@@ -72,6 +75,7 @@ namespace Colors2
             }
             //画像受信部のフォーム
             socket.Show();
+            Console.WriteLine("fuga");
         }
 
         private void label1_Click(object sender, EventArgs e)
@@ -85,6 +89,11 @@ namespace Colors2
             prj.Close();
             set.Close();
             intro.Close();
+
+            if (Form5.p != null)
+            {
+                Form5.p.Kill();
+            }
         }
     }
 }

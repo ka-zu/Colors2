@@ -61,8 +61,9 @@ namespace Colors2
             MyEvent = new MyEventHandler(event_DataReceived);
 
             p = new Process();
-            string apppath = Path.GetDirectoryName(Application.ExecutablePath) + "\\..\\..\\";
-            p.StartInfo.FileName = apppath + @"TCPGraphicGetting_x86.exe";
+            //string apppath = Path.GetDirectoryName(Application.ExecutablePath);
+            //box.Text += apppath + @"TCPGraphicGetting_x64.exe";
+            p.StartInfo.FileName = @"C:\\Users\\marii\\Desktop\\Colors2\\Colors2\\TCPGraphicGetting_x64.exe";
             box.Text += p.StartInfo.FileName;
 
             p.StartInfo.UseShellExecute = false;
@@ -152,8 +153,7 @@ namespace Colors2
                 if (resSize == 0)
                 {
                     disconnected = true;
-
-                    Console.WriteLine("クライアント({0})が切断しました。",((IPEndPoint)client.Client.RemoteEndPoint).Address);
+                    
                     break;
                 }
                 //受信したデータを蓄積する
@@ -166,7 +166,6 @@ namespace Colors2
             System.Threading.Thread.Sleep(100);
             ns.Close();
             client.Close();
-            Console.WriteLine("切断しました。");
         } 
 
         private TcpListener BuildServer()
@@ -176,9 +175,6 @@ namespace Colors2
 
             server = new TcpListener(GetSelfIP(), port);
             server.Start();
-            Console.WriteLine("Listenを開始しました({0}:{1})。",
-            ((IPEndPoint)server.LocalEndpoint).Address,
-            ((IPEndPoint)server.LocalEndpoint).Port);
 
             return server;
         }
