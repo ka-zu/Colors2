@@ -63,7 +63,14 @@ namespace Colors2
             p = new Process();
             //string apppath = Path.GetDirectoryName(Application.ExecutablePath);
             //box.Text += apppath + @"TCPGraphicGetting_x64.exe";
-            p.StartInfo.FileName = @"TCPGraphicGetting_x86.exe";
+            //実行環境が32bitか64bitか判定
+            if (IntPtr.Size == 4)
+            {
+                p.StartInfo.FileName = @"TCPGraphicGetting_x86.exe";
+            }else if(IntPtr.Size == 8)
+            {
+                p.StartInfo.FileName = @"TCPGraphicGetting_x64.exe";
+            }
             box.Text += p.StartInfo.FileName;
 
             p.StartInfo.UseShellExecute = false;
@@ -95,9 +102,10 @@ namespace Colors2
             if (e.Data.IndexOf("%") == -1) {
                 if (flag) box.Text += e.Data + "\r\n";
             }
+            if (e.Data.IndexOf("IP") != -1) IPViewer.Text += "下のIPをタブレットで設定してください\r\n"+ e.Data.Substring(0,(e.Data.IndexOf("PORT")));
             if (e.Data.IndexOf("done") != -1) {
                 Form2.isReceivedImage = true;
-                Form2.ReceivedImageNum++;
+                Form2.ReceivedImageNum = Form2.ReceivedImageNum+1;
             }
         }
 

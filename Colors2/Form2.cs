@@ -221,8 +221,8 @@ namespace Colors2
         private void timer_Tick(object sender, EventArgs e)
         {
             if (isReceivedImage && (pic == 2 || pic == 3 || pic == 4) ) {
-                addRecievedFigureObj();
                 isReceivedImage = false;
+                addRecievedFigureObj();
                 ReceivedImageNum = 0;
             }
 

@@ -54,10 +54,6 @@ namespace Colors2
         //終了ボタン
         private void button3_Click(object sender, EventArgs e)
         {
-            if (Form5.p != null)
-            {
-                Form5.p.Kill();
-            }
             this.Close();
         }
 
