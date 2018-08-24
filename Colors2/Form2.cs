@@ -237,7 +237,7 @@ namespace Colors2
             //角度が一周したら
             if(angle == 360)
             {
-                angle = 5;
+                angle = 1;
             }
             else
             {
@@ -264,7 +264,6 @@ namespace Colors2
             Refresh();
         }
 
-        //送信されてきた画像を自動で追加
         private void addRecievedFigureObj() {
             try {
                 if (pic == 2 || pic == 3 || pic == 4) {
@@ -283,8 +282,8 @@ namespace Colors2
                         figList[figList.Count-1].point.X = r.Next(this.Width-imgSize);
                         figList[figList.Count-1].point.Y = r.Next(this.Height-imgSize);
                         //中心座標
-                        figList[figList.Count - 1].centerPoint.X = figList[figList.Count - 1].point.X + (imgSize / 2);
-                        figList[figList.Count - 1].centerPoint.Y = figList[figList.Count - 1].point.Y + (imgSize / 2);
+                        fig.centerPoint.X = r.Next(this.Width - imgSize) + (imgSize / 2);
+                        fig.centerPoint.Y = r.Next(this.Height - imgSize) + (imgSize / 2);
                     }
                 }
             }
