@@ -36,6 +36,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.logo = new System.Windows.Forms.PictureBox();
             this.taneLogo = new System.Windows.Forms.PictureBox();
+            this.button6 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.logo)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.taneLogo)).BeginInit();
             this.SuspendLayout();
@@ -117,11 +118,21 @@
             this.taneLogo.TabIndex = 6;
             this.taneLogo.TabStop = false;
             // 
+            // button6
+            // 
+            this.button6.Location = new System.Drawing.Point(592, 57);
+            this.button6.Name = "button6";
+            this.button6.Size = new System.Drawing.Size(130, 118);
+            this.button6.TabIndex = 7;
+            this.button6.Text = "印刷";
+            this.button6.UseVisualStyleBackColor = true;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(599, 394);
+            this.ClientSize = new System.Drawing.Size(833, 394);
+            this.Controls.Add(this.button6);
             this.Controls.Add(this.taneLogo);
             this.Controls.Add(this.logo);
             this.Controls.Add(this.label1);
@@ -151,6 +162,7 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.PictureBox logo;
         private System.Windows.Forms.PictureBox taneLogo;
+        private System.Windows.Forms.Button button6;
     }
 }
 
