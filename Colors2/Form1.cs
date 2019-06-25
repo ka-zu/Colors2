@@ -26,6 +26,9 @@ namespace Colors2
         Form3 set = new Form3();
         //説明部のフォーム
         Form4 intro = new Form4();
+        //印刷用のフォーム
+        FrmPrint printing;
+
         //通信部のフォーム
         Form5 socket;
 
@@ -74,6 +77,12 @@ namespace Colors2
             Console.WriteLine("fuga");
         }
 
+        private void button6_Click(object sender, EventArgs e)
+        {
+            printing = new FrmPrint();
+            printing.Show();
+        }
+
         private void label1_Click(object sender, EventArgs e)
         {
 
@@ -91,5 +100,7 @@ namespace Colors2
                 Form5.p.Kill();
             }
         }
+
+        
     }
 }

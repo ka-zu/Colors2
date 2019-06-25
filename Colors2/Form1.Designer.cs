@@ -126,12 +126,13 @@
             this.button6.TabIndex = 7;
             this.button6.Text = "印刷";
             this.button6.UseVisualStyleBackColor = true;
+            this.button6.Click += new System.EventHandler(this.button6_Click);
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(833, 394);
+            this.ClientSize = new System.Drawing.Size(753, 394);
             this.Controls.Add(this.button6);
             this.Controls.Add(this.taneLogo);
             this.Controls.Add(this.logo);
