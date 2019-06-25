@@ -56,6 +56,7 @@ namespace Colors2
         //画像を選ぶボタン
         private void button2_Click(object sender, EventArgs e)
         {
+            //開かれる初期ディレクトリ
             open.InitialDirectory = System.IO.Path.GetFullPath(@"./drawImages");
 
             if (open.ShowDialog() == DialogResult.OK)
@@ -70,7 +71,9 @@ namespace Colors2
         private void button3_Click(object sender, EventArgs e)
         {
             DateTime dt = DateTime.Now;
+            //時間をファイル名に変換
             saveName = dt.Year.ToString() + "_" + dt.Month.ToString()+"_"+ dt.Day.ToString() + "_" + dt.Hour.ToString() + "_" + dt.Second.ToString();
+            saveName = @"./printing/" + saveName + ".png";
             Console.WriteLine(saveName);
             Console.WriteLine("click");
             //印刷オブジェクト
@@ -81,7 +84,7 @@ namespace Colors2
 
             Console.WriteLine("bbbb");
 
-            //一旦保存
+            /*一旦保存*/
             //画像を保存するためのImageオブジェクト作成
             Bitmap saveImg = new Bitmap(pictureBox1.Image,pictureBox1.Width, pictureBox1.Height);
 
@@ -90,11 +93,11 @@ namespace Colors2
             //imageオブジェクトに画像と文字列を描画する
 
             //pictureBox1.Image.Save(saveName+".png",System.Drawing.Imaging.ImageFormat.Png);
-            saveImg.Save(@"./printing/" + saveName +".png",System.Drawing.Imaging.ImageFormat.Png);
+            saveImg.Save(saveName,System.Drawing.Imaging.ImageFormat.Png);
 
 
             Console.WriteLine("saved");
-            //印刷開始
+            /*印刷開始*/
             //pd.Print();
 
         }
@@ -123,19 +126,20 @@ namespace Colors2
             //ImageオブジェクトのGraphicsオブジェクトを作成
             Graphics g = Graphics.FromImage(saveImg);
 
-            //
+            //フレームが選ばれていたら表示
             if (selectFrame != null)
             {
                 g.DrawImage(Image.FromFile(selectFrame), 0, 0, 550, 550);
             }
 
+            //画像が選ばれていたら表示
             if (selectImage != null)
             {
                 g.DrawImage(Image.FromFile(selectImage), 100, 100, 350, 350);
             }
 
+            //Pictureboxに適用
             pictureBox1.Image = saveImg;
-
         }
 
         //印刷する関数
@@ -143,7 +147,7 @@ namespace Colors2
             System.Drawing.Printing.PrintPageEventArgs e)
         {
             //pictureboxの中身を入れる
-            Image img = Image.FromFile(@"./printing/aaa.png");
+            Image img = Image.FromFile(saveName);
             if(img == null)
             {
                 Console.WriteLine("aaaaaaa");
