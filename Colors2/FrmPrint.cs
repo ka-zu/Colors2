@@ -70,35 +70,43 @@ namespace Colors2
         //印刷ボタン
         private void button3_Click(object sender, EventArgs e)
         {
-            DateTime dt = DateTime.Now;
-            //時間をファイル名に変換
-            saveName = dt.Year.ToString() + "_" + dt.Month.ToString()+"_"+ dt.Day.ToString() + "_" + dt.Hour.ToString() + "_" + dt.Second.ToString();
-            saveName = @"./printing/" + saveName + ".png";
-            Console.WriteLine(saveName);
-            Console.WriteLine("click");
-            //印刷オブジェクト
-            System.Drawing.Printing.PrintDocument pd =
-                new System.Drawing.Printing.PrintDocument();
-            //イベントハンドラ追加
-            pd.PrintPage += new System.Drawing.Printing.PrintPageEventHandler(printPage);
+            //画像がない時にエラー表示
+            if (selectFrame != null || selectImage != null)
+            {
+                DateTime dt = DateTime.Now;
+                //時間をファイル名に変換
+                saveName = dt.Year.ToString() + "_" + dt.Month.ToString() + "_" + dt.Day.ToString() + "_" + dt.Hour.ToString() + "_" + dt.Second.ToString();
+                saveName = @"./printing/" + saveName + ".png";
+                Console.WriteLine(saveName);
+                Console.WriteLine("click");
+                //印刷オブジェクト
+                System.Drawing.Printing.PrintDocument pd =
+                    new System.Drawing.Printing.PrintDocument();
+                //イベントハンドラ追加
+                pd.PrintPage += new System.Drawing.Printing.PrintPageEventHandler(printPage);
 
-            Console.WriteLine("bbbb");
+                Console.WriteLine("bbbb");
 
-            /*一旦保存*/
-            //画像を保存するためのImageオブジェクト作成
-            Bitmap saveImg = new Bitmap(pictureBox1.Image,pictureBox1.Width, pictureBox1.Height);
+                /*一旦保存*/
+                //画像を保存するためのImageオブジェクト作成
+                Bitmap saveImg = new Bitmap(pictureBox1.Image, pictureBox1.Width, pictureBox1.Height);
 
-            //Imageオブジェクトに画像と文字列を作成する
-            Graphics g = Graphics.FromImage(saveImg);
-            //imageオブジェクトに画像と文字列を描画する
+                //Imageオブジェクトに画像と文字列を作成する
+                Graphics g = Graphics.FromImage(saveImg);
+                //imageオブジェクトに画像と文字列を描画する
 
-            //pictureBox1.Image.Save(saveName+".png",System.Drawing.Imaging.ImageFormat.Png);
-            saveImg.Save(saveName,System.Drawing.Imaging.ImageFormat.Png);
+                //pictureBox1.Image.Save(saveName+".png",System.Drawing.Imaging.ImageFormat.Png);
+                saveImg.Save(saveName, System.Drawing.Imaging.ImageFormat.Png);
 
 
-            Console.WriteLine("saved");
-            /*印刷開始*/
-            //pd.Print();
+                Console.WriteLine("saved");
+                /*印刷開始*/
+                //pd.Print();
+            }
+            else
+            {
+                MessageBox.Show("フレームか画像を選択してください。", "エラー");
+            }
 
         }
 
