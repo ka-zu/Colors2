@@ -235,7 +235,7 @@ namespace Colors2
             }
 
             //角度が一周したら
-            if(angle == 360)
+            if(angle >= 360)
             {
                 angle = 1;
             }
