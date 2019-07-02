@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.IO;//ファイル読み取り
 
 namespace Colors2
 {
@@ -35,9 +36,17 @@ namespace Colors2
         //スタートボタン
         private void button1_Click(object sender, EventArgs e)
         {
-            //プロジェクション部のフォーム
-            prj = new Form2();
-            prj.Show();
+
+            if (File.Exists(@"./settingLog.txt"))
+            {
+                //プロジェクション部のフォーム
+                prj = new Form2();
+                prj.Show();
+            }
+            else
+            {
+                MessageBox.Show("設定ファイルがありません。\n設定の項目を開いてください。");
+            }
         }
 
         private void Form1_Load(object sender, EventArgs e)

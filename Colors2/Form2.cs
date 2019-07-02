@@ -533,6 +533,10 @@ namespace Colors2
 
                 readSetting.Close();
             }
+            else
+            {
+                this.Close();
+            }
         }
     }
 }

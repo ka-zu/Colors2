@@ -81,7 +81,9 @@ namespace Colors2
             size.Text = "150";
 
             //はじめに選択されている色を設定
-            cd.Color = Color.White;
+            selectedColor = Color.FromArgb(255, 255, 255, 255);
+
+            cd.Color = selectedColor;
             //色の作成部分を表示可能にする（デフォルトでtrue）
             //cd.AllowFullOpen = true
 
