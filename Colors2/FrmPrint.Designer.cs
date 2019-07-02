@@ -106,6 +106,7 @@
             this.Controls.Add(this.button1);
             this.Name = "FrmPrint";
             this.Text = "印刷";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FrmPrint_FormClosing);
             this.Load += new System.EventHandler(this.FrmPrint_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);

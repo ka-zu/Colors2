@@ -26,6 +26,7 @@ namespace Colors2
         //印刷前の一旦保存の名前
         String saveName;
 
+        Bitmap drawImg;
 
 
         public FrmPrint()
@@ -82,6 +83,8 @@ namespace Colors2
                 //印刷オブジェクト
                 System.Drawing.Printing.PrintDocument pd =
                     new System.Drawing.Printing.PrintDocument();
+                pd.DefaultPageSettings.Margins = new System.Drawing.Printing.Margins(50, 50, 50, 50);
+                
                 //イベントハンドラ追加
                 pd.PrintPage += new System.Drawing.Printing.PrintPageEventHandler(printPage);
 
@@ -101,7 +104,7 @@ namespace Colors2
 
                 Console.WriteLine("saved");
                 /*印刷開始*/
-                //pd.Print();
+                pd.Print();
             }
             else
             {
@@ -110,29 +113,22 @@ namespace Colors2
 
         }
 
+        private void FrmPrint_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            /*pictureBox1.Image.Dispose();
+            drawImg.Dispose();
+            this.Dispose();*/
+        }
+
         //----自作関数----
         //印刷する画像を表示
         private void drawFrameAndImage()
-        {
-            /*Graphics gr = pictureBox1.CreateGraphics();
-
-            if (selectFrame != null)
-            {
-                Image img1 = Image.FromFile(selectFrame);
-                gr.DrawImage(img1, 0, 0, 550,550);
-            }
-
-            if (selectImage != null)
-            {
-                Image img2 = Image.FromFile(selectImage);
-                gr.DrawImage(img2, 100,100,350,350);
-            }*/
-            
-            //画像を保存するためのImageオブジェト
-            Bitmap saveImg = new Bitmap(pictureBox1.Width, pictureBox1.Height);
+        {            
+            //画像をブレビューするためのImageオブジェト
+            drawImg = new Bitmap(pictureBox1.Width, pictureBox1.Height);
 
             //ImageオブジェクトのGraphicsオブジェクトを作成
-            Graphics g = Graphics.FromImage(saveImg);
+            Graphics g = Graphics.FromImage(drawImg);
 
             //フレームが選ばれていたら表示
             if (selectFrame != null)
@@ -143,11 +139,11 @@ namespace Colors2
             //画像が選ばれていたら表示
             if (selectImage != null)
             {
-                g.DrawImage(Image.FromFile(selectImage), 100, 100, 350, 350);
+                g.DrawImage(Image.FromFile(selectImage), 275-100, 275 - 100, 200, 200);
             }
 
             //Pictureboxに適用
-            pictureBox1.Image = saveImg;
+            pictureBox1.Image = drawImg;
         }
 
         //印刷する関数
@@ -161,11 +157,15 @@ namespace Colors2
                 Console.WriteLine("aaaaaaa");
             }
             //画像を描画
-            //e.Graphics.DrawImage(img, e.MarginBounds);
+            e.Graphics.DrawImage(Image.FromFile(selectFrame), e.MarginBounds);
+            e.Graphics.DrawImage(Image.FromFile(selectImage), 700/2-200+50, 990/2-200+50,400,400);
+            //e.Graphics.DrawImage(drawImg,0,0, e.MarginBounds.Width, e.MarginBounds.Height);
             //次のページがないことを示す
             e.HasMorePages = false;
             //後始末
             img.Dispose();
         }
+
+        
     }
 }
