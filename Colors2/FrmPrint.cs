@@ -133,13 +133,13 @@ namespace Colors2
             //フレームが選ばれていたら表示
             if (selectFrame != null)
             {
-                g.DrawImage(Image.FromFile(selectFrame), 0, 0, 550, 550);
+                g.DrawImage(Image.FromFile(selectFrame), 0, 0, 350, 495);
             }
 
             //画像が選ばれていたら表示
             if (selectImage != null)
             {
-                g.DrawImage(Image.FromFile(selectImage), 275-100, 275 - 100, 200, 200);
+                g.DrawImage(Image.FromFile(selectImage), 350/2-100, 495/2 - 100, 200, 200);
             }
 
             //Pictureboxに適用
