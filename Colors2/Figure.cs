@@ -36,9 +36,31 @@ namespace Colors2
             motionType = returnMotionType();
         }
 
+        public Figure(String path, int randNum)//コンストラクタ(動きと速さがない場合)・乱数値も受け取る
+        {
+            objPath = path;
+            r = new Random(randNum);
+
+            img = Image.FromFile(objPath);
+            move = 0;
+            speed = returnSpeed(0);
+            motionType = returnMotionType();
+        }
+
         public Figure(String path, int mov, int spe)
         {
             objPath = path;
+            img = Image.FromFile(objPath);
+            move = mov;
+            speed = returnSpeed(spe);
+            motionType = returnMotionType();
+        }
+
+        public Figure(String path, int mov, int spe, int randNum)
+        {
+            objPath = path;
+            r = new Random(randNum);
+
             img = Image.FromFile(objPath);
             move = mov;
             speed = returnSpeed(spe);
@@ -66,11 +88,11 @@ namespace Colors2
             switch (spe)
             {
                 case 0:
-                    return 1;
+                    return r.Next(2)+1;
                 case 1:
-                    return 3;
+                    return r.Next(2,4)+1;
                 case 2:
-                    return 5;
+                    return r.Next(4,6)+1;
                 default :
                     return 0;
             }

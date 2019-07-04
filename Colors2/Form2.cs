@@ -275,7 +275,7 @@ namespace Colors2
 
                     for (int i = 0; i < ReceivedImageNum; i++)//新しい物からnum件とってくる
                     {
-                        Figure fig = new Figure(files[i], mov, spe);
+                        Figure fig = new Figure(files[i], mov, spe, r.Next());
                         figList.Add(fig);//要素を末尾に追加
                         if (figList.Count > (pic-1) * 5) { figList.RemoveAt(0); }
                         //左上座標
@@ -312,7 +312,7 @@ namespace Colors2
                         while ((str = reader.ReadLine()) != null)
                         {
 
-                            Figure fig = new Figure(str,mov,spe);
+                            Figure fig = new Figure(str, mov, spe, r.Next());
                             figList.Add(fig);//要素を末尾に追加
                             Console.WriteLine(str);
                         }
@@ -336,7 +336,7 @@ namespace Colors2
 
                     for(int i=0; i<num; i++)//新しい物からnum件とってくる
                     {
-                        Figure fig = new Figure(files[i], mov, spe);
+                        Figure fig = new Figure(files[i], mov, spe, r.Next());
                         figList.Add(fig);//要素を末尾に追加
                         Console.WriteLine(files[i]);
                     }
