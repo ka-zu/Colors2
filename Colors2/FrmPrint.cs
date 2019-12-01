@@ -157,8 +157,14 @@ namespace Colors2
                 Console.WriteLine("aaaaaaa");
             }
             //画像を描画
-            e.Graphics.DrawImage(Image.FromFile(selectFrame), e.MarginBounds);
-            e.Graphics.DrawImage(Image.FromFile(selectImage), 700/2-200+50, 990/2-200+50,400,400);
+            if (selectFrame != null)
+            {
+                e.Graphics.DrawImage(Image.FromFile(selectFrame), e.MarginBounds);
+            }
+            if (selectImage != null)
+            {
+                e.Graphics.DrawImage(Image.FromFile(selectImage), 700 / 2 - 200 + 50, 990 / 2 - 200 + 50, 400, 400);
+            }
             //e.Graphics.DrawImage(drawImg,0,0, e.MarginBounds.Width, e.MarginBounds.Height);
             //次のページがないことを示す
             e.HasMorePages = false;

@@ -244,24 +244,48 @@ namespace Colors2
                 angle += 5;
             }
 
-
-            if (figList[0] != null)
+            if (figList[0] != null)//図形があれば
             {
                 foreach (Figure temp in figList)
                 {
                     //temp.point.X += 1;
                     //temp.point.Y += 1;
                    
-                    movement(temp);
-                    revSpeed(temp);
+                    movement(temp);//動かす処理
+                    revSpeed(temp);//壁に当たった処理
                 }
             }
-            else
+            else//図形がなかったら初期図形
             {
                 revSpeed(initFig);
                 movement(initFig);
             }
-            Refresh();
+
+            //衝突クールタイム更新
+            foreach(Figure fig in figList)
+            {
+                if(fig.canCollision)
+                {
+                    continue;
+                }
+
+                if(fig.collisionTimer == 0)
+                {
+                    fig.collisionTimer = 0;
+                    fig.canCollision = true;
+                        
+                }
+                else
+                {
+                    fig.collisionTimer -= 1;
+
+                }
+            }
+
+            //isCollision();//衝突判定呼び出し
+            
+
+            Refresh();//画面更新
         }
 
         private void addRecievedFigureObj() {
@@ -289,6 +313,69 @@ namespace Colors2
             }
             catch (Exception ex) {
                 Console.WriteLine(ex.Message);//コンソール出力
+            }
+        }
+
+        //
+        //自作関数
+        //
+
+        //図形同士がぶつかっているか調べる
+        private void isCollision()
+        {
+            for(int i = 0; i < figList.Count-1; i++)//ぶつかり元
+            {
+
+                int centerX = figList[i].centerPoint.X;
+                int centerY = figList[i].centerPoint.Y;
+                int collisionRange = imgSize/3;
+
+                //上・下・右・左端
+                int upEdge = figList[i].centerPoint.Y - collisionRange;
+                int bottomEdge = figList[i].centerPoint.Y + collisionRange;
+                int rightEdge = figList[i].centerPoint.X + collisionRange;
+                int leftEdge = figList[i].centerPoint.X - collisionRange;
+
+                for (int j = i + 1; j < figList.Count; j++)//ぶつかり先
+                {
+                    //ぶつかる相手の上・下・右・左端
+                    int colUpEdge = figList[j].centerPoint.Y - collisionRange;
+                    int colBottomEdge = figList[j].centerPoint.Y + collisionRange;
+                    int colRightEdge = figList[j].centerPoint.X + collisionRange;
+                    int colLeftEdge = figList[j].centerPoint.X - collisionRange;
+
+
+                    if ((centerX + collisionRange > figList[j].centerPoint.X - collisionRange//元の右が相手の左にぶつかる（右が正）
+                           && centerY + collisionRange > figList[j].centerPoint.Y - collisionRange || centerY - collisionRange < figList[j].centerPoint.Y + collisionRange)//中心の高さが相手の図形より内側
+                       || (centerX - collisionRange < figList[j].centerPoint.X + collisionRange//相手の右にぶつかる
+                           && centerY + collisionRange > figList[j].centerPoint.Y - collisionRange || centerY - collisionRange < figList[j].centerPoint.Y + collisionRange)//中心の高さが相手の図形より内側
+                       || (centerY + collisionRange > figList[j].centerPoint.Y - collisionRange//相手の上にぶつかる（下が正）
+                           && centerX + collisionRange > figList[j].centerPoint.X - collisionRange || centerX - collisionRange < figList[j].centerPoint.X + collisionRange)//中心の横位置が相手の図形より内側
+                       || (centerY - collisionRange < figList[j].centerPoint.Y + collisionRange//相手の下にぶつかる
+                           && centerX + collisionRange > figList[j].centerPoint.X - collisionRange || centerX - collisionRange < figList[j].centerPoint.X + collisionRange))//中心の横位置が相手の図形より内側
+                    {
+                        if (figList[i].canCollision)
+                        {
+                            figList[i].speed = (-1) * figList[i].speed;
+                            figList[i].canCollision = false;
+                            figList[j].canCollision = false;
+                        }
+                    }
+
+                    /*if(    (rightEdge > colLeftEdge && (bottomEdge > colUpEdge || upEdge < colBottomEdge))
+                        || (leftEdge < colRightEdge && (bottomEdge > colUpEdge || upEdge < colBottomEdge))
+                        || (bottomEdge > colUpEdge  && (rightEdge > colLeftEdge || leftEdge < colRightEdge))
+                        || (upEdge < colBottomEdge  && (rightEdge > colLeftEdge || leftEdge < colRightEdge)))
+                    {
+                        if (figList[i].canCollision)
+                        {
+                            figList[i].speed = (-1) * figList[i].speed;
+                            figList[j].speed = (-1) * figList[j].speed;
+                            figList[i].canCollision = false;
+                            figList[j].canCollision = false;
+                        }
+                    }*/
+                }
             }
         }
 
