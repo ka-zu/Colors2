@@ -25,7 +25,7 @@ namespace Colors2
         public int motionType;//設定されたモードから割り当てられる動き
         public int speed;//動きのスピード
         public int collisionTimer;//ぶつかった時のクールタイム
-        public bool canCollision;
+        public bool canCollision;//ぶつかることができるか
 
         Random r = new Random(DateTime.Now.Millisecond);
 
