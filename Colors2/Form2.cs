@@ -132,9 +132,11 @@ namespace Colors2
             {
                 foreach (Figure temp in figList ){
                     
-                    e.Graphics.DrawImage(temp.img,temp.point.X,temp.point.Y,imgSize,imgSize);
+                    //e.Graphics.DrawImage(temp.img,temp.point.X,temp.point.Y,imgSize,imgSize);
+                    e.Graphics.DrawImage(temp.img, temp.point.X, temp.point.Y, imgSize, imgSize);
                     //e.Graphics.DrawArc(Pens.Red,temp.point.X,temp.point.Y,10,10,0,360);座標確認用
                     //e.Graphics.DrawArc(Pens.Blue, temp.centerPoint.X, temp.centerPoint.Y, 10, 10, 0, 360);//中心座標確認用
+                    //e.Graphics.DrawRectangle(Pens.Blue, temp.point.X, temp.point.Y, imgSize, imgSize);//図形範囲確認用
                 }
             }
             else
@@ -235,7 +237,7 @@ namespace Colors2
             }
 
             //角度が一周したら
-            if(angle >= 360)
+            if (angle >= 360)
             {
                 angle = 1;
             }
