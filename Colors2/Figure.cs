@@ -26,6 +26,7 @@ namespace Colors2
         public int speed;//動きのスピード
         public int collisionTimer;//ぶつかった時のクールタイム
         public bool canCollision;//ぶつかることができるか
+        public int size;
 
         Random r = new Random(DateTime.Now.Millisecond);
 
@@ -39,6 +40,7 @@ namespace Colors2
             motionType = returnMotionType();
             collisionTimer = 10;
             canCollision = true;
+            size = 150;
         }
 
         public Figure(String path, int randNum)//コンストラクタ(動きと速さがない場合)・乱数値も受け取る
@@ -52,6 +54,7 @@ namespace Colors2
             motionType = returnMotionType();
             collisionTimer = 10;
             canCollision = true;
+            size = 150;
         }
 
         public Figure(String path, int mov, int spe)
@@ -63,6 +66,7 @@ namespace Colors2
             motionType = returnMotionType();
             collisionTimer = 10;
             canCollision = true;
+            size = 150;
         }
 
         public Figure(String path, int mov, int spe, int randNum)
@@ -76,6 +80,21 @@ namespace Colors2
             motionType = returnMotionType();
             collisionTimer = 10;
             canCollision = true;
+            size = 150;
+        }
+
+        public Figure(String path, int mov, int spe, int randNum, int s)
+        {
+            objPath = path;
+            r = new Random(randNum);
+
+            img = Image.FromFile(objPath);
+            move = mov;
+            speed = returnSpeed(spe);
+            motionType = returnMotionType();
+            collisionTimer = 10;
+            canCollision = true;
+            size = s;
         }
 
         private int returnMotionType()

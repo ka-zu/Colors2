@@ -133,7 +133,7 @@ namespace Colors2
                 foreach (Figure temp in figList ){
                     
                     //e.Graphics.DrawImage(temp.img,temp.point.X,temp.point.Y,imgSize,imgSize);
-                    e.Graphics.DrawImage(temp.img, temp.point.X, temp.point.Y, imgSize, imgSize);
+                    e.Graphics.DrawImage(temp.img, temp.point.X, temp.point.Y, temp.size, temp.size);
                     //e.Graphics.DrawArc(Pens.Red,temp.point.X,temp.point.Y,10,10,0,360);座標確認用
                     //e.Graphics.DrawArc(Pens.Blue, temp.centerPoint.X, temp.centerPoint.Y, 10, 10, 0, 360);//中心座標確認用
                     //e.Graphics.DrawRectangle(Pens.Blue, temp.point.X, temp.point.Y, imgSize, imgSize);//図形範囲確認用
@@ -401,7 +401,7 @@ namespace Colors2
                         while ((str = reader.ReadLine()) != null)
                         {
 
-                            Figure fig = new Figure(str, mov, spe, r.Next());
+                            Figure fig = new Figure(str, mov, spe, r.Next(), imgSize);
                             figList.Add(fig);//要素を末尾に追加
                             Console.WriteLine(str);
                         }
